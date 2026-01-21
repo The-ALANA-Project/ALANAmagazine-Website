@@ -12,12 +12,20 @@ export function QuoteSection() {
           </svg>
         </div>
         <blockquote className="text-2xl md:text-3xl font-light text-foreground leading-relaxed mb-8">
-          "Web3 is not just about technology—it's about empowering creators to own their work, 
-          build meaningful communities, and shape the future of digital culture."
+          "Basic income would give people the most important freedom: the freedom of deciding for themselves what they want to do with their lives."
         </blockquote>
-        <p className="text-lg text-foreground/80 font-mono">
-          — ALANAmagazine
-        </p>
+        <div className="flex items-center justify-center gap-4">
+          <div className="h-[1px] w-16 bg-foreground"></div>
+          <a 
+            href="https://rutgerbregman.com/books/utopia-for-realists"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-lg text-foreground/50 font-mono hover:text-foreground transition-colors"
+          >
+            Rutger Bregman
+          </a>
+          <div className="h-[1px] w-16 bg-foreground"></div>
+        </div>
       </div>
     </section>
   );

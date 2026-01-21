@@ -13,11 +13,11 @@ interface TestimonialsSectionProps {
 
 export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) {
   return (
-    <section className="px-8 md:px-16 py-12 md:py-16 max-w-7xl mx-auto">
-      <div className="mb-12 text-center">
+    <section>
+      <div className="mb-12">
         <h2 className="mb-2">What Our Community Says</h2>
         <p className="text-muted-foreground">
-          Hear from creators and builders who are part of the ALANA journey
+          Hear from readers and creators who are part of the ALANA journey:
         </p>
       </div>
 
@@ -25,21 +25,21 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
         {testimonials.map((testimonial, index) => (
           <div
             key={index}
-            className="bg-secondary/20 p-8 rounded-none rounded-br-[25px] border border-accent/20 hover:border-accent/40 transition-all duration-300"
+            className="bg-secondary/20 p-8 rounded-none rounded-br-[25px] border border-accent hover:border-accent transition-all duration-300 flex flex-col hover:scale-105"
           >
             <Quote className="w-8 h-8 text-accent mb-4" />
-            <p className="text-foreground/80 mb-6 leading-relaxed">
+            <p className="text-foreground/80 mb-6 leading-relaxed flex-1">
               "{testimonial.content}"
             </p>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 mt-auto">
               <img
                 src={testimonial.avatar}
                 alt={testimonial.name}
-                className="w-12 h-12 rounded-full object-cover"
+                className="w-12 h-12 rounded-full object-cover border border-accent"
               />
-              <div>
-                <p className="font-medium text-foreground">{testimonial.name}</p>
-                <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+              <div className="flex flex-col justify-center">
+                <p className="font-medium text-foreground leading-tight">{testimonial.name}</p>
+                <p className="text-sm text-muted-foreground leading-tight">{testimonial.role}</p>
               </div>
             </div>
           </div>

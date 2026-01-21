@@ -267,6 +267,16 @@ h3[class] {
   font-size: 30px !important;
 }
 
+h4,
+h4.font-medium,
+h4.font-bold,
+h4.font-semibold,
+h4[class] {
+  font-family: var(--font-sans) !important;
+  font-weight: 500 !important;
+  font-size: 20px !important;
+}
+
 /* Description text sizing rules */
 h1 + p,
 h1 + * > p:first-child {

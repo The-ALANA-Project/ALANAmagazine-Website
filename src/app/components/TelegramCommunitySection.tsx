@@ -9,18 +9,14 @@ export function TelegramCommunitySection() {
         <p className="text-foreground/80 mb-6 max-w-2xl">
           Our friendly community is here to support you every step of the way.
         </p>
-        <Button
-          asChild
-          className="bg-foreground hover:bg-foreground/90 text-background font-sans px-8 py-6"
+        <a
+          href="https://t.me/+1To9sD5l3T8zMjIy"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block bg-foreground text-background font-sans text-[16px] px-8 py-3 rounded-none rounded-br-[25px] transition-all hover:!bg-[#DCC2FE] hover:!text-foreground hover:outline hover:outline-1 hover:outline-foreground"
         >
-          <a
-            href="https://t.me/+1To9sD5l3T8zMjIy"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Join Our Community On Telegram
-          </a>
-        </Button>
+          Join Our Community On Telegram
+        </a>
       </div>
     </section>
   );

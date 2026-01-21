@@ -1,6 +1,7 @@
-import { Clock, ArrowRight } from 'lucide-react';
+import { Clock } from 'lucide-react';
 import { Badge } from '@/app/components/ui/badge';
 import { AuthorByline } from '@/app/components/AuthorByline';
+import { ClickHandIcon } from '@/app/components/ClickHandIcon';
 
 interface ArticleCardProps {
   title: string;
@@ -27,13 +28,13 @@ export function ArticleCard({
   featured = false,
 }: ArticleCardProps) {
   return (
-    <article className={`article-card overflow-hidden group cursor-pointer ${featured ? 'col-span-full md:col-span-2' : ''}`}>
+    <article className={`article-card overflow-hidden group cursor-pointer flex flex-col h-full ${featured ? 'col-span-full md:col-span-2' : ''}`}>
       {/* Image Section */}
-      <div className="relative aspect-video overflow-hidden rounded-br-[25px]">
+      <div className="relative aspect-video overflow-hidden">
         <img
           src={image}
           alt={title}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          className="w-full h-full object-cover"
         />
         <Badge className="absolute top-4 left-4 bg-accent text-accent-foreground border-none rounded-none font-mono">
           {category}
@@ -41,24 +42,24 @@ export function ArticleCard({
       </div>
 
       {/* Content Section */}
-      <div className="p-6 space-y-4">
+      <div className="p-6 space-y-4 flex flex-col flex-1">
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <Clock className="w-4 h-4" />
           <span className="font-mono">{readTime} min read</span>
         </div>
 
-        <h3 className="text-2xl group-hover:text-accent transition-colors duration-300">
+        <h4 className="text-2xl group-hover:text-accent transition-colors duration-300">
           {title}
-        </h3>
+        </h4>
 
-        <p className="text-sm text-muted-foreground line-clamp-2">
+        <p className="text-[16px] text-muted-foreground line-clamp-2 flex-1">
           {description}
         </p>
 
-        <div className="flex items-center justify-between pt-4 border-t border-border">
+        <div className="flex items-center justify-between pt-4 border-t border-foreground mt-auto">
           <AuthorByline author={author} date={date} />
           
-          <ArrowRight className="w-5 h-5 text-accent group-hover:translate-x-2 transition-transform duration-300" />
+          <ClickHandIcon className="w-5 h-5 text-foreground group-hover:text-accent transition-colors duration-300" />
         </div>
       </div>
     </article>

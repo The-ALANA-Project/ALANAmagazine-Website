@@ -31,7 +31,13 @@ export function AuthorByline({ author, date, size = 'sm' }: AuthorBylineProps) {
         <span className={`font-medium ${size === 'sm' ? 'text-sm' : 'text-base'}`}>
           {author.name}
         </span>
-        <span className="text-xs text-muted-foreground">{date}</span>
+        <a 
+          href="#" 
+          className="text-xs text-foreground hover:text-accent transition-colors"
+          onClick={(e) => e.stopPropagation()}
+        >
+          LinkedIn Profile
+        </a>
       </div>
     </div>
   );
