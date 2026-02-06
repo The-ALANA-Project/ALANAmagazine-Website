@@ -10,12 +10,24 @@ interface SEOHeadProps {
 export function SEOHead({
   title = "ALANAmagazine™ - Where Tech, Culture & Lifestyle Collide",
   description = "At ALANAmagazine™ we explore how Web3 is reshaping technology, creativity, culture, and the way we live. The first onchain-first phygital magazine merging creativity and technology.",
-  image = "https://images.unsplash.com/photo-1664966343005-eceb7433b1c6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtYWdhemluZSUyMGNvdmVyJTIwZmFzaGlvbnxlbnwxfHx8fDE3Njg3NjAxNjZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-  url = "https://alanamagazine.com"
+  image = "https://pink-quick-lizard-297.mypinata.cloud/ipfs/bafkreictfmoajfiry4wxcx7g7k6gjuotj237drxqaatjlbvuwi2wmsuuo4",
+  url = "https://alanamagazine.xyz" 
 }: SEOHeadProps) {
   useEffect(() => {
     // Update document title
     document.title = title;
+
+    // Set favicon
+    const setFavicon = () => {
+      let link = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
+      if (!link) {
+        link = document.createElement('link');
+        link.rel = 'icon';
+        document.head.appendChild(link);
+      }
+      link.href = 'https://pink-quick-lizard-297.mypinata.cloud/ipfs/bafybeiapuwp5qvwn2bm42vkqzhfij2oegdguy3kzprdxu5g3oazlyuurma/ALANA%20Image%20Mark%20-%20Black%20on%20White.png';
+    };
+    setFavicon();
 
     // Helper function to set or update meta tags
     const setMetaTag = (name: string, content: string, isProperty = false) => {

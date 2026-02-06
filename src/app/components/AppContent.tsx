@@ -23,6 +23,7 @@ import { GoogleAnalytics } from '@/app/components/GoogleAnalytics';
 import { SEOHead } from '@/app/components/SEOHead';
 import { ArticleFlipbook } from '@/app/components/ArticleFlipbook';
 import { SubscribeForm } from '@/app/components/SubscribeForm';
+import { CookieConsent } from '@/app/components/CookieConsent';
 import { toast } from 'sonner';
 import { assetUrls } from '@/assets/asset-urls';
 
@@ -730,6 +731,9 @@ export function AppContent() {
           </div>
         </div>
       </footer>
+
+      {/* Cookie Consent */}
+      <CookieConsent />
     </div>
   );
 }

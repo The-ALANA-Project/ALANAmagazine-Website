@@ -32,6 +32,13 @@ export function FeaturedCreators({
   const [sheetOpen, setSheetOpen] = useState(false);
   const [currentHeroSlide, setCurrentHeroSlide] = useState(0);
   const [shuffledCreators, setShuffledCreators] = useState<typeof featuredCreators>([]);
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [passwordInput, setPasswordInput] = useState('');
+  const [isUnlocked, setIsUnlocked] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+
+  // Password for hidden profiles
+  const UNLOCK_PASSWORD = 'alana2026';
 
   // Hero slideshow images
   const heroImages = [
@@ -142,6 +149,28 @@ export function FeaturedCreators({
     const shuffled = [...featuredCreators].sort(() => Math.random() - 0.5);
     setShuffledCreators(shuffled);
   }, []);
+
+  // Handle password submission
+  const handlePasswordSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (passwordInput === UNLOCK_PASSWORD) {
+      setIsUnlocked(true);
+      setShowPasswordModal(false);
+      setPasswordInput('');
+      setPasswordError(false);
+    } else {
+      setPasswordError(true);
+    }
+  };
+
+  // Filter creators based on unlock status
+  const visibleCreators = shuffledCreators.filter(creator => {
+    // Hide JavoG and Sogand Nobahar unless unlocked
+    if ((creator.name === 'JavoG' || creator.name === 'Sogand Nobahar') && !isUnlocked) {
+      return false;
+    }
+    return true;
+  });
 
   return (
     <div className="min-h-screen bg-background">
@@ -270,7 +299,7 @@ export function FeaturedCreators({
         <section className="w-full pt-16 pb-16">
           <div className="px-8 md:px-16 max-w-6xl mx-auto">
             <div className="flex flex-col gap-16">
-              {shuffledCreators.map((creator) => (
+              {visibleCreators.map((creator) => (
                 <div
                   key={creator.id}
                   className="border border-accent rounded-br-[25px] overflow-hidden bg-background"
