@@ -35,7 +35,8 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
               <img
                 src={testimonial.avatar}
                 alt={testimonial.name}
-                className="w-12 h-12 rounded-full object-cover border border-accent"
+                className="w-10 h-10 rounded-full object-cover"
+                loading="lazy"
               />
               <div className="flex flex-col justify-center">
                 <p className="font-medium text-foreground leading-tight">{testimonial.name}</p>

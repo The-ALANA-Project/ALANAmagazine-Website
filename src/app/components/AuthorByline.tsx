@@ -4,6 +4,7 @@ interface AuthorBylineProps {
   author: {
     name: string;
     avatar?: string;
+    link?: string;
   };
   date: string;
   size?: 'sm' | 'md';
@@ -31,13 +32,17 @@ export function AuthorByline({ author, date, size = 'sm' }: AuthorBylineProps) {
         <span className={`font-medium ${size === 'sm' ? 'text-sm' : 'text-base'}`}>
           {author.name}
         </span>
-        <a 
-          href="#" 
-          className="text-xs text-foreground hover:text-accent transition-colors"
-          onClick={(e) => e.stopPropagation()}
-        >
-          LinkedIn Profile
-        </a>
+        {author.link && (
+          <a 
+            href={author.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-foreground hover:text-accent transition-colors"
+            onClick={(e) => e.stopPropagation()}
+          >
+            LinkedIn Profile
+          </a>
+        )}
       </div>
     </div>
   );

@@ -20,6 +20,7 @@ interface SideShelfMenuProps {
   onGetInvolvedClick?: () => void;
   onAdvertiseClick?: () => void;
   onHomeClick?: () => void;
+  onFeaturedCreatorsClick?: () => void;
 }
 
 export function SideShelfMenu({
@@ -34,6 +35,7 @@ export function SideShelfMenu({
   onGetInvolvedClick,
   onAdvertiseClick,
   onHomeClick,
+  onFeaturedCreatorsClick,
 }: SideShelfMenuProps) {
   const handlePageChange = (page: string) => {
     if (page === 'home' && onHomeClick) {
@@ -45,12 +47,10 @@ export function SideShelfMenu({
     } else if (page === 'team' && onTeamClick) {
       onTeamClick();
       // Don't call onClose here - it's handled in the parent
-    } else if (page === 'get-involved' && onGetInvolvedClick) {
-      onGetInvolvedClick();
-      // Don't call onClose here - it's handled in the parent
     } else if (page === 'advertise' && onAdvertiseClick) {
       onAdvertiseClick();
-      // Don't call onClose here - it's handled in the parent
+    } else if (page === 'creators' && onFeaturedCreatorsClick) {
+      onFeaturedCreatorsClick();
     } else {
       onPageChange(page);
       onClose();
@@ -59,10 +59,10 @@ export function SideShelfMenu({
 
   const menuItems = [
     { id: 'home', label: 'Home' },
-    { id: 'team', label: 'Team' },
+    { id: 'creators', label: 'Featured Creators' },
+    { id: 'team', label: 'Contributors' },
     { id: 'shop', label: 'Shop & Archive' },
     { id: 'advertise', label: 'Advertise With Us' },
-    { id: 'get-involved', label: 'Get Involved' },
   ];
 
   return (

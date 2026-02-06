@@ -51,6 +51,9 @@ export function SubscribeForm() {
       console.error('Subscribe error:', error);
       setStatus('error');
       setMessage('Something went wrong. Please try again later.');
+      if (import.meta.env.DEV) {
+        console.error('Subscribe error:', error);
+      }
     } finally {
       setIsLoading(false);
     }

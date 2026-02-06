@@ -1,5 +1,4 @@
 import { Clock } from 'lucide-react';
-import { Badge } from '@/app/components/ui/badge';
 import { AuthorByline } from '@/app/components/AuthorByline';
 import { ClickHandIcon } from '@/app/components/ClickHandIcon';
 
@@ -30,15 +29,13 @@ export function ArticleCard({
   return (
     <article className={`article-card overflow-hidden group cursor-pointer flex flex-col h-full ${featured ? 'col-span-full md:col-span-2' : ''}`}>
       {/* Image Section */}
-      <div className="relative aspect-video overflow-hidden">
+      <div className="relative aspect-[16/10] overflow-hidden">
         <img
           src={image}
           alt={title}
           className="w-full h-full object-cover"
+          loading="lazy"
         />
-        <Badge className="absolute top-4 left-4 bg-accent text-accent-foreground border-none rounded-none font-mono">
-          {category}
-        </Badge>
       </div>
 
       {/* Content Section */}

@@ -1,6 +1,10 @@
-import { Calendar } from 'lucide-react';
+import { Calendar, Download, Lock, Loader2 } from 'lucide-react';
 import { Button } from '@/app/components/ui/button';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useAccount } from 'wagmi';
+import { useAppKit } from '@reown/appkit/react';
+import { toast } from 'sonner';
+import { projectId, publicAnonKey } from '/utils/supabase/info';
 
 interface MagazineIssue {
   id: string;
@@ -15,26 +19,229 @@ interface MagazineIssue {
 interface MagazineIssueGridProps {
   issues: MagazineIssue[];
   onNavigateToSubscribe?: () => void;
+  onNavigateToSampleReads?: () => void;
 }
 
-export function MagazineIssueGrid({ issues, onNavigateToSubscribe }: MagazineIssueGridProps) {
+export function MagazineIssueGrid({ issues, onNavigateToSubscribe, onNavigateToSampleReads }: MagazineIssueGridProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {issues.map((issue) => (
-        <MagazineIssueCard key={issue.id} issue={issue} onNavigateToSubscribe={onNavigateToSubscribe} />
+        <MagazineIssueCard 
+          key={issue.id} 
+          issue={issue} 
+          onNavigateToSubscribe={onNavigateToSubscribe} 
+          onNavigateToSampleReads={onNavigateToSampleReads} 
+        />
       ))}
     </div>
   );
 }
 
-function MagazineIssueCard({ issue, onNavigateToSubscribe }: { issue: MagazineIssue; onNavigateToSubscribe?: () => void }) {
+function MagazineIssueCard({ issue, onNavigateToSubscribe, onNavigateToSampleReads }: { 
+  issue: MagazineIssue; 
+  onNavigateToSubscribe?: () => void; 
+  onNavigateToSampleReads?: () => void 
+}) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [ownsNFT, setOwnsNFT] = useState<boolean | null>(null);
+  const [isVerifying, setIsVerifying] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
+  const { address, isConnected } = useAccount();
+  const appKit = useAppKit();
 
-  const handleButtonClick = () => {
-    if (issue.title === 'AIR Edition' && onNavigateToSubscribe) {
-      onNavigateToSubscribe();
+  // Check NFT ownership when wallet connects (only for EARTH Edition)
+  useEffect(() => {
+    if (isConnected && address && issue.title === 'EARTH Edition') {
+      checkNFTOwnership();
+    } else if (!isConnected) {
+      setOwnsNFT(null);
+    }
+  }, [address, isConnected, issue.title]);
+
+  const checkNFTOwnership = async () => {
+    if (!address) return;
+
+    setIsVerifying(true);
+    try {
+      const response = await fetch(
+        `https://${projectId}.supabase.co/functions/v1/make-server-2e3ce182/check-nft-balance`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${publicAnonKey}`,
+          },
+          body: JSON.stringify({ walletAddress: address }),
+        }
+      );
+
+      const data = await response.json();
+      
+      if (data.success && data.owns) {
+        setOwnsNFT(true);
+      } else {
+        setOwnsNFT(false);
+      }
+    } catch (error) {
+      console.error('Error checking NFT ownership:', error);
+      setOwnsNFT(false);
+    } finally {
+      setIsVerifying(false);
     }
   };
+
+  const handleSampleReadsClick = () => {
+    if (onNavigateToSampleReads) {
+      onNavigateToSampleReads();
+    } else {
+      const sampleReadsSection = document.getElementById('sample-reads');
+      if (sampleReadsSection) {
+        sampleReadsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  };
+
+  const handleDownloadClick = async () => {
+    if (!isConnected || !address) {
+      // Open wallet connection modal instead of showing error
+      try {
+        await appKit.open();
+      } catch (error) {
+        console.error('Error opening wallet modal:', error);
+      }
+      return;
+    }
+
+    if (ownsNFT === false) {
+      toast.error('NFT Required', {
+        description: 'You need to own an EARTH Edition NFT to download this magazine. Visit the Shop & Archive page to purchase.'
+      });
+      return;
+    }
+
+    setIsDownloading(true);
+    
+    try {
+      toast.loading('Verifying NFT ownership...', { id: 'nft-verify' });
+
+      const response = await fetch(
+        `https://${projectId}.supabase.co/functions/v1/make-server-2e3ce182/verify-nft-download`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${publicAnonKey}`,
+          },
+          body: JSON.stringify({ walletAddress: address }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (data.success && data.verified && data.downloadUrl) {
+        toast.success('Access granted!', { 
+          id: 'nft-verify',
+          description: data.message 
+        });
+
+        // Trigger download
+        const link = document.createElement('a');
+        link.href = data.downloadUrl;
+        link.download = 'EARTH-Edition-Full.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        toast.success('Download started!', {
+          description: 'Your EARTH Edition magazine is downloading.'
+        });
+
+        setOwnsNFT(true);
+      } else {
+        toast.error('Verification failed', { 
+          id: 'nft-verify',
+          description: data.message || 'You do not own an EARTH Edition NFT.' 
+        });
+        setOwnsNFT(false);
+      }
+    } catch (error) {
+      console.error('Download error:', error);
+      toast.error('Download failed', { 
+        id: 'nft-verify',
+        description: 'An error occurred while processing your request. Please try again.' 
+      });
+    } finally {
+      setIsDownloading(false);
+    }
+  };
+
+  // Determine button text and action for different scenarios
+  const getButtonConfig = () => {
+    if (issue.title === 'AIR Edition') {
+      return {
+        text: 'Coming Soon',
+        onClick: onNavigateToSubscribe,
+        disabled: false,
+        icon: null,
+      };
+    }
+
+    if (issue.title === 'EARTH Edition') {
+      if (!isConnected) {
+        return {
+          text: 'Connect Wallet to Download',
+          onClick: handleDownloadClick,
+          disabled: false,
+          icon: null,
+        };
+      }
+
+      if (isVerifying) {
+        return {
+          text: 'Checking NFT...',
+          onClick: () => {},
+          disabled: true,
+          icon: <Loader2 className="w-4 h-4 mr-2 animate-spin" />,
+        };
+      }
+
+      if (ownsNFT === true) {
+        return {
+          text: isDownloading ? 'Downloading...' : 'Download Edition',
+          onClick: handleDownloadClick,
+          disabled: isDownloading,
+          icon: isDownloading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Download className="w-4 h-4 mr-2" />,
+        };
+      }
+
+      if (ownsNFT === false) {
+        return {
+          text: 'NFT Required',
+          onClick: handleDownloadClick,
+          disabled: false,
+          icon: null,
+        };
+      }
+
+      // Checking ownership
+      return {
+        text: 'Verify & Download',
+        onClick: handleDownloadClick,
+        disabled: false,
+        icon: <Download className="w-4 h-4 mr-2" />,
+      };
+    }
+
+    // Default for other editions
+    return {
+      text: 'Go To Sample Reads',
+      onClick: handleSampleReadsClick,
+      disabled: false,
+      icon: null,
+    };
+  };
+
+  const buttonConfig = getButtonConfig();
 
   return (
     <article className="article-card overflow-hidden group cursor-pointer">
@@ -42,8 +249,9 @@ function MagazineIssueCard({ issue, onNavigateToSubscribe }: { issue: MagazineIs
       <div className="relative aspect-[3/4] overflow-hidden">
         <img
           src={issue.coverImage}
-          alt={issue.title}
+          alt={`${issue.title} Cover`}
           className="w-full h-full object-cover"
+          loading="lazy"
         />
       </div>
 
@@ -82,11 +290,18 @@ function MagazineIssueCard({ issue, onNavigateToSubscribe }: { issue: MagazineIs
         </div>
 
         <Button
-          onClick={handleButtonClick}
-          className="w-full bg-accent hover:bg-foreground text-accent-foreground hover:text-background font-sans px-8 rounded-none rounded-br-[25px] transition-colors"
+          onClick={buttonConfig.onClick}
+          disabled={buttonConfig.disabled}
+          className="w-full bg-accent hover:bg-foreground text-accent-foreground hover:text-background font-sans px-8 rounded-none rounded-br-[25px] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
         >
-          {issue.title === 'AIR Edition' ? 'Coming Soon' : 'Download Sample Reads'}
+          {buttonConfig.icon}
+          {buttonConfig.text}
         </Button>
+
+        {/* Show verification status for EARTH Edition */}
+        {issue.title === 'EARTH Edition' && isConnected && ownsNFT === true && (
+          <p className="text-xs text-accent text-center">✓ NFT Verified</p>
+        )}
       </div>
     </article>
   );

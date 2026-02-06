@@ -134,21 +134,21 @@ export function TermsOfService({ onClose, onShowPrivacy }: TermsOfServiceProps) 
             <div className="space-y-4">
               <div>
                 <h4 className="text-[18px] font-sans font-medium text-foreground/70 mb-2">5.1</h4>
-                <p className="leading-relaxed text-[14px]">
+                <p className="leading-relaxed text-[18px]">
                   Content posted on The ALANA Project's Services is the sole responsibility of the person who originated such content. The views and opinions expressed on The ALANA Project's Services are those of the person who expressed it, and do not necessarily reflect the views or positions of The ALANA Project as a whole. You certify that you own all intellectual property rights in your content or have the right to use and allow the use of this content on the Services.
                 </p>
               </div>
 
               <div>
                 <h4 className="text-[18px] font-sans font-medium text-foreground/70 mb-2">5.2</h4>
-                <p className="leading-relaxed text-[14px]">
+                <p className="leading-relaxed text-[18px]">
                   You agree not to display, upload, post, transmit, or share content that is illegal, harmful, threatening, abusive, harassing, defamatory, vulgar, obscene, or otherwise objectionable.
                 </p>
               </div>
 
               <div>
                 <h4 className="text-[18px] font-sans font-medium text-foreground/70 mb-2">5.3</h4>
-                <p className="leading-relaxed text-[14px]">
+                <p className="leading-relaxed text-[18px]">
                   The ALANA Project reserves the right to remove any content or suspend users found to be in violation of these Terms.
                 </p>
               </div>
@@ -217,7 +217,7 @@ export function TermsOfService({ onClose, onShowPrivacy }: TermsOfServiceProps) 
               For any questions about these Terms, please contact us at:{' '}
               <a 
                 href="mailto:contact@the-alana-project.xyz" 
-                className="text-accent hover:underline font-mono"
+                className="text-[rgb(38,36,36)] hover:underline font-mono"
               >
                 contact@the-alana-project.xyz
               </a>
@@ -231,7 +231,7 @@ export function TermsOfService({ onClose, onShowPrivacy }: TermsOfServiceProps) 
                 onClose();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="bg-accent hover:bg-accent/90 text-accent-foreground font-sans px-8 rounded-none rounded-br-[25px]"
+              className="bg-accent hover:bg-foreground text-accent-foreground hover:text-accent font-sans px-8 rounded-none rounded-br-[25px] transition-colors"
             >
               Back to Home
             </Button>
@@ -240,25 +240,27 @@ export function TermsOfService({ onClose, onShowPrivacy }: TermsOfServiceProps) 
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-foreground px-8 md:px-16 py-8 max-w-6xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="flex w-full md:w-auto justify-between gap-4 md:gap-6">
-            <button 
-              onClick={() => window.location.reload()}
-              className="text-[16px] pb-2 text-muted-foreground hover:text-accent transition-colors"
-            >
-              Terms of Service
-            </button>
-            <button
-              onClick={onShowPrivacy}
-              className="text-[16px] pb-2 text-muted-foreground hover:text-accent transition-colors"
-            >
-              Privacy Policy
-            </button>
+      <footer className="border-t border-foreground">
+        <div className="px-8 md:px-16 py-8 max-w-6xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="flex w-full md:w-auto justify-between gap-4 md:gap-6">
+              <button 
+                onClick={() => window.location.reload()}
+                className="text-[16px] pb-2 text-muted-foreground hover:text-accent transition-colors"
+              >
+                Terms of Service
+              </button>
+              <button
+                onClick={onShowPrivacy}
+                className="text-[16px] pb-2 text-muted-foreground hover:text-accent transition-colors"
+              >
+                Privacy Policy
+              </button>
+            </div>
+            <p className="text-[14px] text-muted-foreground font-mono pt-[0px] pr-[0px] pb-[8px] pl-[0px]">
+              © 2026 The ALANA Project
+            </p>
           </div>
-          <p className="text-[14px] text-muted-foreground font-mono pt-[0px] pr-[0px] pb-[8px] pl-[0px]">
-            © 2026 The ALANA Project
-          </p>
         </div>
       </footer>
     </div>

@@ -13,7 +13,7 @@ export function TelegramCommunitySection() {
           href="https://t.me/+1To9sD5l3T8zMjIy"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block bg-foreground text-background font-sans text-[16px] px-8 py-3 rounded-none rounded-br-[25px] transition-all hover:!bg-[#DCC2FE] hover:!text-foreground hover:outline hover:outline-1 hover:outline-foreground"
+          className="inline-flex items-center justify-center bg-foreground text-background font-sans text-[16px] px-8 h-10 rounded-none rounded-br-[25px] transition-all hover:!bg-[#DCC2FE] hover:!text-foreground hover:outline hover:outline-1 hover:outline-foreground"
         >
           Join Our Community On Telegram
         </a>

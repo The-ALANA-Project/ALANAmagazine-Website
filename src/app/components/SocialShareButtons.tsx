@@ -37,12 +37,14 @@ export function SocialShareButtons({
     window.location.href = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(url)}`;
   };
 
-  const copyLink = async () => {
+  const handleCopyLink = async () => {
     try {
-      await navigator.clipboard.writeText(url);
-      // You could add a toast notification here
+      await navigator.clipboard.writeText(window.location.href);
+      // Success feedback handled silently or via toast if needed
     } catch (err) {
-      console.error('Failed to copy link:', err);
+      if (import.meta.env.DEV) {
+        console.error('Failed to copy link:', err);
+      }
     }
   };
 

@@ -374,7 +374,7 @@ export function PressKit({
               <div className="mb-6">
                 <h3 className="text-[48px] font-mono mb-2" style={{ fontFamily: 'Roboto Mono, monospace' }}>Roboto Mono</h3>
                 <p className="text-[20px] text-muted-foreground mb-4" style={{ fontFamily: 'Roboto Mono, monospace' }}>
-                  The quick brown fox jumps
+                  The quick brown fox jumps over the lazy dog
                 </p>
               </div>
               <div className="border-t border-foreground pt-6">
@@ -449,7 +449,7 @@ export function PressKit({
           </p>
           <a
             href="mailto:contact@the-alana-project.xyz"
-            className="inline-block bg-foreground text-background font-sans text-[16px] px-8 py-3 rounded-none rounded-br-[25px] transition-all hover:!bg-[#DCC2FE] hover:!text-foreground hover:outline hover:outline-1 hover:outline-foreground"
+            className="inline-flex items-center justify-center bg-foreground text-background font-sans text-[16px] px-8 h-10 rounded-none rounded-br-[25px] transition-all hover:!bg-[#DCC2FE] hover:!text-foreground hover:outline hover:outline-1 hover:outline-foreground"
           >
             Reach Out
           </a>
@@ -457,8 +457,9 @@ export function PressKit({
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-foreground px-8 md:px-16 py-8 max-w-6xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+      <footer className="border-t border-foreground">
+        <div className="px-8 md:px-16 py-8 max-w-6xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex w-full md:w-auto justify-between gap-4 md:gap-6">
             <button 
               onClick={onShowTerms}
@@ -482,6 +483,7 @@ export function PressKit({
           <p className="text-[14px] text-muted-foreground font-mono pt-[0px] pr-[0px] pb-[8px] pl-[0px]">
             © 2026 The ALANA Project
           </p>
+          </div>
         </div>
       </footer>
     </div>

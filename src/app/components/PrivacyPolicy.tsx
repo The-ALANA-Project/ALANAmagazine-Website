@@ -153,7 +153,7 @@ export function PrivacyPolicy({ onClose, onShowTerms }: PrivacyPolicyProps) {
               Should you require further information about this Policy, please do not hesitate to contact at:{' '}
               <a 
                 href="mailto:contact@the-alana-project.xyz" 
-                className="text-accent hover:underline font-mono"
+                className="text-[rgb(38,36,36)] hover:underline font-mono"
               >
                 contact@the-alana-project.xyz
               </a>
@@ -167,7 +167,7 @@ export function PrivacyPolicy({ onClose, onShowTerms }: PrivacyPolicyProps) {
                 onClose();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="bg-accent hover:bg-accent/90 text-accent-foreground font-sans px-8 rounded-none rounded-br-[25px]"
+              className="bg-accent hover:bg-foreground text-accent-foreground hover:text-accent font-sans px-8 rounded-none rounded-br-[25px] transition-colors"
             >
               Back to Home
             </Button>
@@ -176,25 +176,27 @@ export function PrivacyPolicy({ onClose, onShowTerms }: PrivacyPolicyProps) {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-foreground px-8 md:px-16 py-8 max-w-6xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="flex w-full md:w-auto justify-between gap-4 md:gap-6">
-            <button 
-              onClick={onShowTerms}
-              className="text-[16px] pb-2 text-muted-foreground hover:text-accent transition-colors"
-            >
-              Terms of Service
-            </button>
-            <button
-              onClick={() => window.location.reload()}
-              className="text-[16px] pb-2 text-muted-foreground hover:text-accent transition-colors"
-            >
-              Privacy Policy
-            </button>
+      <footer className="border-t border-foreground">
+        <div className="px-8 md:px-16 py-8 max-w-6xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="flex w-full md:w-auto justify-between gap-4 md:gap-6">
+              <button 
+                onClick={onShowTerms}
+                className="text-[16px] pb-2 text-muted-foreground hover:text-accent transition-colors"
+              >
+                Terms of Service
+              </button>
+              <button
+                onClick={() => window.location.reload()}
+                className="text-[16px] pb-2 text-muted-foreground hover:text-accent transition-colors"
+              >
+                Privacy Policy
+              </button>
+            </div>
+            <p className="text-[14px] text-muted-foreground font-mono pt-[0px] pr-[0px] pb-[8px] pl-[0px]">
+              © 2026 The ALANA Project
+            </p>
           </div>
-          <p className="text-[14px] text-muted-foreground font-mono pt-[0px] pr-[0px] pb-[8px] pl-[0px]">
-            © 2026 The ALANA Project
-          </p>
         </div>
       </footer>
     </div>

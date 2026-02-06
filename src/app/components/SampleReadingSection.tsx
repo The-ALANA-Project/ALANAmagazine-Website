@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import slideImage1 from 'figma:asset/6b769cc6b6b988ade4ff91fa1504e602ab631649.png';
+import slideImage2 from 'figma:asset/2036f32e7856b6075261d4bde21f01c023805e32.png';
+import slideImage3 from 'figma:asset/68687b62870e79cae8ced07ea1d18482bc703120.png';
 
 export function SampleReadingSection() {
   const [currentImage, setCurrentImage] = useState(0);
 
   const images = [
-    'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&h=800&fit=crop',
-    'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&h=800&fit=crop',
-    'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=800&h=800&fit=crop',
-    'https://images.unsplash.com/photo-1664966343005-eceb7433b1c6?w=800&h=800&fit=crop',
-    'https://images.unsplash.com/photo-1519662978799-2f05096d3636?w=800&h=800&fit=crop',
+    slideImage1,
+    slideImage2,
+    slideImage3,
   ];
 
   const nextImage = () => {
@@ -36,7 +37,7 @@ export function SampleReadingSection() {
         {/* Left Column - Main Text */}
         <div className="space-y-6">
           <p className="text-foreground/90 leading-relaxed text-[18px]">
-            ALANAmagazine is a high‑gloss, phygital magazine where technology, culture, and lifestyle naturally overlap. It is made for curious readers, creatives, and tech professionals who want to understand what is changing around them, wrapped in an entertaining format.
+            ALANAmagazine is a high‑gloss, phygital magazine where technology, culture, and lifestyle naturally overlap. It is made for curious readers, creatives, and tech professionals who want to understand how these different interconnected topics connect with the emergence of Web3.
           </p>
           <p className="text-foreground/90 leading-relaxed text-[18px]">
             With clean layouts and just the right amount of playful detail we, at <a href="https://the-alana-project.xyz/" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">The ALANA Project</a> community, take great care to curate this collectible magazine once per year.
@@ -44,14 +45,11 @@ export function SampleReadingSection() {
           <p className="text-foreground/90 leading-relaxed text-[18px]">
             Each edition is released as a thoughtfully crafted digital and print experience you can read, collect (NFT), and come back to as the world evolves.
           </p>
-          <p className="text-foreground/90 leading-relaxed text-[18px]">
-            By collecting or contributing to the wider ALANA community, you support inclusive, independent storytelling about how our lives are being reshaped at this very moment.
-          </p>
         </div>
 
         {/* Right Column - Visual Element */}
         <div className="relative">
-          <div className="aspect-square rounded-none rounded-br-[25px] border border-accent/20 overflow-hidden bg-secondary/20">
+          <div className="aspect-video rounded-none rounded-br-[25px] border border-accent/20 overflow-hidden bg-secondary/20">
             {/* Slideshow Images */}
             <div className="relative w-full h-full">
               {images.map((image, index) => (

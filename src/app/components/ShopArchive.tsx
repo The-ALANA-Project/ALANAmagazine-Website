@@ -2,11 +2,14 @@ import { useState } from 'react';
 import { Menu, Wallet, X } from 'lucide-react';
 import { Button } from '@/app/components/ui/button';
 import { MagazineIssueGrid } from '@/app/components/MagazineIssueGrid';
-import { QuoteSection } from '@/app/components/QuoteSection';
 import { SideShelfMenu } from '@/app/components/SideShelfMenu';
+import { HelpSection } from '@/app/components/HelpSection';
+import { useAccount } from 'wagmi';
+import { useAppKit } from '@reown/appkit/react';
 import alanaLogo from 'figma:asset/811fb296ea4980c4d9de1deb853dd4aea394df50.png';
 import heroImage from 'figma:asset/c0f30c4e2b42998667adf0a99b639637b2aa1961.png';
 import earthEditionCover from 'figma:asset/fc56667d1cf1abdc05af55fb9171320a45a9d9b4.png';
+import airEditionCover from 'figma:asset/5d7ab7c1b8fac42ab11fd12886703a1b94d4f87f.png';
 
 interface ShopArchiveProps {
   onClose: () => void;
@@ -14,17 +17,35 @@ interface ShopArchiveProps {
   onTeamClick?: () => void;
   onGetInvolvedClick?: () => void;
   onAdvertiseClick?: () => void;
+  onFeaturedCreatorsClick?: () => void;
   onShowTerms?: () => void;
   onShowPrivacy?: () => void;
   onShowPressKit?: () => void;
 }
 
-export function ShopArchive({ onClose, onShopArchiveClick, onTeamClick, onGetInvolvedClick, onAdvertiseClick, onShowTerms, onShowPrivacy, onShowPressKit }: ShopArchiveProps) {
+export function ShopArchive({ onClose, onShopArchiveClick, onTeamClick, onGetInvolvedClick, onAdvertiseClick, onFeaturedCreatorsClick, onShowTerms, onShowPrivacy, onShowPressKit }: ShopArchiveProps) {
   const [sheetOpen, setSheetOpen] = useState(false);
-  const [isWalletConnected, setIsWalletConnected] = useState(false);
+  const { address, isConnected } = useAccount();
+  
+  // Get AppKit modal (with safe fallback)
+  let appKitModal: any = null;
+  try {
+    appKitModal = useAppKit();
+  } catch (error) {
+    // Silent fail - AppKit not ready yet
+  }
 
-  const handleWalletToggle = () => {
-    setIsWalletConnected(!isWalletConnected);
+  const handleWalletToggle = async () => {
+    try {
+      if (appKitModal) {
+        await appKitModal.open();
+      }
+    } catch (error: any) {
+      // Only show error if it's not a proposal expiry
+      if (!error?.message?.includes('Proposal expired') && import.meta.env.DEV) {
+        console.error('Wallet connection error:', error);
+      }
+    }
   };
 
   const magazineIssues = [
@@ -34,7 +55,7 @@ export function ShopArchive({ onClose, onShopArchiveClick, onTeamClick, onGetInv
       issueNumber: '42',
       series: 'The Elements 2/4',
       date: '2026',
-      coverImage: 'https://images.unsplash.com/photo-1679930348703-f94efd6ad369?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxibHVlJTIwc2t5JTIwY2xvdWRzfGVufDF8fHx8MTc2ODg2MjA4Mnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+      coverImage: airEditionCover,
       description: 'The AIR Edition explores themes of freedom, innovation, and the boundless possibilities of Web3 technology. Featuring exclusive interviews with leading designers and innovators shaping the future of digital culture.',
     },
     {
@@ -54,6 +75,16 @@ export function ShopArchive({ onClose, onShopArchiveClick, onTeamClick, onGetInv
       const subscribeSection = document.getElementById('subscribe');
       if (subscribeSection) {
         subscribeSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 100);
+  };
+
+  const handleNavigateToSampleReads = () => {
+    onClose();
+    setTimeout(() => {
+      const sampleReadsSection = document.getElementById('sample-reads');
+      if (sampleReadsSection) {
+        sampleReadsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }, 100);
   };
@@ -79,11 +110,11 @@ export function ShopArchive({ onClose, onShopArchiveClick, onTeamClick, onGetInv
               <button
                 onClick={handleWalletToggle}
                 className={`transition-colors ${
-                  isWalletConnected
+                  isConnected
                     ? 'text-accent hover:text-accent/80'
                     : 'text-foreground hover:text-accent'
                 }`}
-                aria-label={isWalletConnected ? "Disconnect wallet" : "Connect wallet"}
+                aria-label={isConnected ? "Disconnect wallet" : "Connect wallet"}
               >
                 <Wallet className="w-6 h-6" />
               </button>
@@ -111,13 +142,17 @@ export function ShopArchive({ onClose, onShopArchiveClick, onTeamClick, onGetInv
         onClose={() => setSheetOpen(false)}
         currentPage="shop"
         onPageChange={() => {}}
-        isWalletConnected={isWalletConnected}
+        isWalletConnected={isConnected}
         onWalletToggle={handleWalletToggle}
         onHomeClick={onClose}
         onShopArchiveClick={onShopArchiveClick}
         onTeamClick={onTeamClick}
         onGetInvolvedClick={onGetInvolvedClick}
         onAdvertiseClick={onAdvertiseClick}
+        onFeaturedCreatorsClick={() => {
+          setSheetOpen(false);
+          if (onFeaturedCreatorsClick) onFeaturedCreatorsClick();
+        }}
       />
 
       {/* Main Content */}
@@ -130,6 +165,8 @@ export function ShopArchive({ onClose, onShopArchiveClick, onTeamClick, onGetInv
               src={heroImage}
               alt="Shop + Archive"
               className="w-full h-full object-cover scale-[1.3]"
+              loading="eager"
+              fetchpriority="high"
             />
             {/* White overlay */}
             <div className="absolute inset-0 bg-background/30" />
@@ -156,7 +193,13 @@ export function ShopArchive({ onClose, onShopArchiveClick, onTeamClick, onGetInv
                   }}
                   className="bg-accent hover:bg-foreground text-accent-foreground hover:text-background font-sans px-8 h-10 rounded-none rounded-br-[25px] transition-colors border border-transparent"
                 >
-                  Browse Editions
+                  Browse Issues
+                </Button>
+                <Button 
+                  onClick={onFeaturedCreatorsClick}
+                  className="bg-background/20 backdrop-blur-md border border-foreground hover:bg-background text-foreground font-sans px-8 h-10 rounded-none rounded-br-[25px] transition-colors"
+                >
+                  Browse NFT Collection
                 </Button>
               </div>
             </div>
@@ -168,7 +211,7 @@ export function ShopArchive({ onClose, onShopArchiveClick, onTeamClick, onGetInv
           <div className="mb-8">
             <h2 className="mb-4">Coming Soon</h2>
             <p className="text-[20px] text-muted-foreground max-w-2xl">
-              ALANAmagazine AIR Edition
+              ALANAmagazine AIR Edition - Q2/2026
             </p>
           </div>
 
@@ -186,20 +229,12 @@ export function ShopArchive({ onClose, onShopArchiveClick, onTeamClick, onGetInv
                 stunning visual essays exploring the concept of digital freedom, and deep dives into projects 
                 that embody the limitless potential of blockchain innovation.
               </p>
-              <div className="mt-auto pt-4">
-                <div className="flex flex-wrap gap-2">
-                  <span className="px-3 py-1 bg-accent/50 text-sm rounded-br-[10px]">Digital Freedom</span>
-                  <span className="px-3 py-1 bg-accent/50 text-sm rounded-br-[10px]">Decentralization</span>
-                  <span className="px-3 py-1 bg-accent/50 text-sm rounded-br-[10px]">Innovation</span>
-                  <span className="px-3 py-1 bg-accent/50 text-sm rounded-br-[10px]">Creator Economy</span>
-                </div>
-              </div>
             </div>
 
             {/* Right Column - Status */}
             <div className="space-y-6 flex flex-col">
               <div className="border-l-4 border-accent pl-6">
-                <h3 className="text-xl mb-2">Production Status</h3>
+                <h4 className="text-xl mb-2">Production Status</h4>
                 <div className="space-y-3">
                   <div className="flex items-center gap-3">
                     <div className="w-3 h-3 rounded-full bg-accent"></div>
@@ -223,10 +258,6 @@ export function ShopArchive({ onClose, onShopArchiveClick, onTeamClick, onGetInv
                   </div>
                 </div>
               </div>
-
-              <div className="bg-accent/10 p-4 rounded-br-[25px] mt-auto bg-[rgba(220,194,254,0.5)]">
-                <p className="text-2xl font-light">Estimated Release Q2/2026</p>
-              </div>
             </div>
           </div>
           
@@ -240,11 +271,28 @@ export function ShopArchive({ onClose, onShopArchiveClick, onTeamClick, onGetInv
           </div>
         </section>
 
-        {/* Quote Section */}
-        <QuoteSection />
+        {/* AIR Edition Pre-Sale Success Section */}
+        <section className="bg-accent py-12 md:py-16 w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
+          <div className="px-8 md:px-16 max-w-6xl mx-auto">
+            <h2 className="mb-4 text-[rgb(38,36,36)]">
+              AIR Edition Pre-Sale Concluded
+            </h2>
+            <p className="text-[#262424] text-[20px] leading-relaxed mb-6 max-w-3xl">
+              We're thrilled to announce that our AIR Edition (the second edition of ALANAmagazine) successfully pre-sold <span className="font-bold text-[rgb(38,36,36)]">148 magazines</span> through our campaign with the Artizen Fund. Thank you to everyone who supported us!
+            </p>
+            <a 
+              href="https://artizen.fund/index/p/alanamagazine---air-edition"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center bg-foreground text-[rgb(220,194,254)] font-sans text-[16px] px-8 h-10 rounded-none rounded-br-[25px] transition-all hover:bg-background hover:text-foreground border border-foreground"
+            >
+              View Campaign Details
+            </a>
+          </div>
+        </section>
 
         {/* Magazine Issues Section */}
-        <section className="px-8 md:px-16 py-12 md:py-16 max-w-6xl mx-auto scroll-mt-24" id="magazine-issues">
+        <section className="px-8 md:px-16 pt-6 md:pt-8 pb-12 md:pb-16 max-w-6xl mx-auto scroll-mt-24" id="magazine-issues">
           <div className="mb-6">
             <h2 className="mb-2">Magazine Issues</h2>
             <p className="text-muted-foreground">
@@ -252,27 +300,32 @@ export function ShopArchive({ onClose, onShopArchiveClick, onTeamClick, onGetInv
             </p>
           </div>
 
-          <MagazineIssueGrid issues={magazineIssues} onNavigateToSubscribe={handleNavigateToSubscribe} />
+          <MagazineIssueGrid issues={magazineIssues} onNavigateToSubscribe={handleNavigateToSubscribe} onNavigateToSampleReads={handleNavigateToSampleReads} />
         </section>
+
+        {/* Help Section */}
+        <HelpSection onFeaturedCreatorsClick={() => onFeaturedCreatorsClick?.()} />
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-foreground px-8 md:px-16 py-8 max-w-6xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="flex w-full md:w-auto justify-between gap-4 md:gap-6">
-            <a href="#" className="text-[16px] pb-2 text-muted-foreground hover:text-accent transition-colors" onClick={onShowTerms}>
-              Terms of Service
-            </a>
-            <a href="#" className="text-[16px] pb-2 text-muted-foreground hover:text-accent transition-colors" onClick={onShowPrivacy}>
-              Privacy Policy
-            </a>
-            <a href="#" className="text-[16px] pb-2 text-muted-foreground hover:text-accent transition-colors" onClick={onShowPressKit}>
-              Press Kit
-            </a>
+      <footer className="border-t border-foreground">
+        <div className="px-8 md:px-16 py-8 max-w-6xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="flex w-full md:w-auto justify-between gap-4 md:gap-6">
+              <a href="#" className="text-[16px] pb-2 text-muted-foreground hover:text-accent transition-colors" onClick={onShowTerms}>
+                Terms of Service
+              </a>
+              <a href="#" className="text-[16px] pb-2 text-muted-foreground hover:text-accent transition-colors" onClick={onShowPrivacy}>
+                Privacy Policy
+              </a>
+              <a href="#" className="text-[16px] pb-2 text-muted-foreground hover:text-accent transition-colors" onClick={onShowPressKit}>
+                Press Kit
+              </a>
+            </div>
+            <p className="text-[14px] text-muted-foreground font-mono pt-[0px] pr-[0px] pb-[8px] pl-[0px]">
+              © 2026 The ALANA Project
+            </p>
           </div>
-          <p className="text-[14px] text-muted-foreground font-mono pt-[0px] pr-[0px] pb-[8px] pl-[0px]">
-            © 2026 The ALANA Project
-          </p>
         </div>
       </footer>
     </div>
