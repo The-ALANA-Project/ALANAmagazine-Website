@@ -2,14 +2,9 @@ import { Menu, Wallet, Download } from 'lucide-react';
 import { Button } from '@/app/components/ui/button';
 import { SideShelfMenu } from '@/app/components/SideShelfMenu';
 import { useState } from 'react';
-import alanaLogo from 'figma:asset/811fb296ea4980c4d9de1deb853dd4aea394df50.png';
-import alanaLogoLightBg from 'figma:asset/0a7b33d44787b67761bdd31f78b379060eff0e06.png';
-import alanaLogoDarkBg from 'figma:asset/bca3f1f13999ef4080704a3928d3570bb7532ab3.png';
 import alanaLogoBlackSvg from '@/imports/alana-logo-black.svg?url';
 import alanaLogoWhiteSvg from '@/imports/alana-logo-white.svg?url';
-import airPromo1 from 'figma:asset/5d7ab7c1b8fac42ab11fd12886703a1b94d4f87f.png';
-import airPromo2 from 'figma:asset/8e0f98c45cf07fad8112bfea7a726b8b68570655.png';
-import airPromo3 from 'figma:asset/c0f30c4e2b42998667adf0a99b639637b2aa1961.png';
+import { assetUrls } from '@/assets/asset-urls';
 
 interface PressKitProps {
   onClose: () => void;
@@ -39,7 +34,7 @@ export function PressKit({
 
   const handleDownloadPngLight = () => {
     const link = document.createElement('a');
-    link.href = alanaLogoLightBg;
+    link.href = assetUrls.alanaLogoLightBg;
     link.download = 'alana-logo-light-background.png';
     document.body.appendChild(link);
     link.click();
@@ -48,7 +43,7 @@ export function PressKit({
 
   const handleDownloadPngDark = () => {
     const link = document.createElement('a');
-    link.href = alanaLogoDarkBg;
+    link.href = assetUrls.alanaLogoDarkBg;
     link.download = 'alana-logo-dark-background.png';
     document.body.appendChild(link);
     link.click();
@@ -97,7 +92,7 @@ export function PressKit({
 
   const handleDownloadAirPromo1 = () => {
     const link = document.createElement('a');
-    link.href = airPromo1;
+    link.href = assetUrls.airPromo1;
     link.download = 'alana-air-edition-promo-1.png';
     document.body.appendChild(link);
     link.click();
@@ -106,7 +101,7 @@ export function PressKit({
 
   const handleDownloadAirPromo2 = () => {
     const link = document.createElement('a');
-    link.href = airPromo2;
+    link.href = assetUrls.airPromo2;
     link.download = 'alana-air-edition-promo-2.png';
     document.body.appendChild(link);
     link.click();
@@ -115,7 +110,7 @@ export function PressKit({
 
   const handleDownloadAirPromo3 = () => {
     const link = document.createElement('a');
-    link.href = airPromo3;
+    link.href = assetUrls.airPromo3;
     link.download = 'alana-air-edition-promo-3.png';
     document.body.appendChild(link);
     link.click();
@@ -134,7 +129,7 @@ export function PressKit({
               className="flex items-center hover:opacity-80 transition-opacity"
               aria-label="Return to home"
             >
-              <img src={alanaLogo} alt="ALANAmagazine" className="h-[33.6px] w-auto" />
+              <img src={assetUrls.alanaLogo} alt="ALANAmagazine" className="h-[33.6px] w-auto" />
             </button>
 
             {/* Wallet and Menu Icons */}
@@ -200,7 +195,7 @@ export function PressKit({
         {/* Header */}
         <div className="mb-12">
           <h1 className="mb-4">Press Kit</h1>
-          <p className="text-[20px] text-muted-foreground max-w-3xl">
+          <p className="text-[18px] md:text-[20px] text-muted-foreground max-w-3xl">
             Download our official brand assets, logos, and media resources for official editorial and promotional use.
           </p>
         </div>
@@ -209,10 +204,10 @@ export function PressKit({
         <section className="mb-16">
           <h2 className="mb-6">About ALANAmagazine</h2>
           <div className="prose prose-lg max-w-none">
-            <p className="text-[20px] mb-4">
+            <p className="text-[18px] md:text-[20px] mb-4">
               ALANAmagazine™ is where technology, culture, and lifestyle collide with a particular emphasis on the emergence of Web 3.0 innovation and its impact on those interconnected topics.
             </p>
-            <p className="text-[18px] mb-4">
+            <p className="text-[16px] md:text-[18px] mb-4">
               Our goal is to inspire and empower global readers to embrace innovation and creativity while providing a curated and elevated experience that reflects the evergreen uniqueness of the ALANA brand.
               The ALANAmagazine™ is published by The ALANA Project community.
             </p>
@@ -222,14 +217,14 @@ export function PressKit({
         {/* AIR Edition Promo Images */}
         <section className="mb-16">
           <h2 className="mb-6">AIR Edition Promo Images</h2>
-          <p className="text-[20px] text-muted-foreground mb-6">
+          <p className="text-[18px] md:text-[20px] text-muted-foreground mb-6">
             Web-ready promotional images for the upcoming AIR Edition. Perfect for social media, press releases, and promotional materials until the official cover is released.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Promo Image 1 */}
             <div className="border border-foreground rounded-none rounded-br-[25px] overflow-hidden">
               <div className="aspect-video bg-foreground/5">
-                <img src={airPromo1} alt="AIR Edition Promo 1" className="w-full h-full object-cover" />
+                <img src={assetUrls.airPromo1} alt="AIR Edition Promo 1" className="w-full h-full object-cover" />
               </div>
               <div className="border-t border-foreground p-4">
                 <h4 className="text-[20px] font-medium mb-2">Promo Image 1</h4>
@@ -243,7 +238,7 @@ export function PressKit({
             {/* Promo Image 2 */}
             <div className="border border-foreground rounded-none rounded-br-[25px] overflow-hidden">
               <div className="aspect-video bg-foreground/5">
-                <img src={airPromo2} alt="AIR Edition Promo 2" className="w-full h-full object-cover" />
+                <img src={assetUrls.airPromo2} alt="AIR Edition Promo 2" className="w-full h-full object-cover" />
               </div>
               <div className="border-t border-foreground p-4">
                 <h4 className="text-[20px] font-medium mb-2">Promo Image 2</h4>
@@ -257,7 +252,7 @@ export function PressKit({
             {/* Promo Image 3 */}
             <div className="border border-foreground rounded-none rounded-br-[25px] overflow-hidden">
               <div className="aspect-video bg-foreground/5">
-                <img src={airPromo3} alt="AIR Edition Promo 3" className="w-full h-full object-cover" />
+                <img src={assetUrls.airPromo3} alt="AIR Edition Promo 3" className="w-full h-full object-cover" />
               </div>
               <div className="border-t border-foreground p-4">
                 <h4 className="text-[20px] font-medium mb-2">Promo Image 3</h4>
@@ -273,7 +268,7 @@ export function PressKit({
         {/* Logo Downloads */}
         <section className="mb-16">
           <h2 className="mb-6">Logo Downloads</h2>
-          <p className="text-[20px] text-muted-foreground mb-6">
+          <p className="text-[18px] md:text-[20px] text-muted-foreground mb-6">
             Please maintain proper spacing and don't alter the logo proportions. Use our official brand colors when referencing ALANA and specifically here ALANAmagazine. Don't modify, distort, or recolor our logos, and don't use our brand assets to imply endorsement without permission.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -347,9 +342,9 @@ export function PressKit({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Roboto */}
             <div className="border border-foreground p-8 rounded-none rounded-br-[25px]">
-              <div className="mb-6">
-                <h3 className="text-[48px] font-sans mb-2" style={{ fontFamily: 'Roboto, sans-serif' }}>Roboto</h3>
-                <p className="text-[20px] text-muted-foreground mb-4" style={{ fontFamily: 'Roboto, sans-serif' }}>
+              <div className="mb-6 min-h-[140px]">
+                <h3 className="text-[36px] md:text-[48px] font-sans mb-2" style={{ fontFamily: 'Roboto, sans-serif' }}>Roboto</h3>
+                <p className="text-[18px] md:text-[20px] text-muted-foreground mb-4" style={{ fontFamily: 'Roboto, sans-serif' }}>
                   The quick brown fox jumps over the lazy dog
                 </p>
               </div>
@@ -371,9 +366,9 @@ export function PressKit({
 
             {/* Roboto Mono */}
             <div className="border border-foreground p-8 rounded-none rounded-br-[25px]">
-              <div className="mb-6">
-                <h3 className="text-[48px] font-mono mb-2" style={{ fontFamily: 'Roboto Mono, monospace' }}>Roboto Mono</h3>
-                <p className="text-[20px] text-muted-foreground mb-4" style={{ fontFamily: 'Roboto Mono, monospace' }}>
+              <div className="mb-6 min-h-[140px]">
+                <h3 className="text-[36px] md:text-[48px] font-mono mb-2" style={{ fontFamily: 'Roboto Mono, monospace' }}>Roboto Mono</h3>
+                <p className="text-[18px] md:text-[20px] text-muted-foreground mb-4" style={{ fontFamily: 'Roboto Mono, monospace' }}>
                   The quick brown fox jumps over the lazy dog
                 </p>
               </div>
@@ -434,7 +429,7 @@ export function PressKit({
         {/* Signature Design Elements */}
         <section className="mb-8">
           <h2 className="mb-6">Signature Design Elements</h2>
-          <p className="text-[20px] text-muted-foreground">
+          <p className="text-[18px] md:text-[20px] text-muted-foreground">
             ALANAmagazine's visual identity is defined by rounded bottom‑right corners (25px radius) on key interface elements and graphic containers, paired with fine 1px lines for subtle structure and emphasis. To enhance readability and depth, imagery often features light 30% color overlays and/or delicate grain textures.
           </p>
         </section>

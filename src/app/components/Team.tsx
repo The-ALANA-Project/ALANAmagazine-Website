@@ -2,20 +2,7 @@ import { useState } from 'react';
 import { Menu, Wallet, X, ExternalLink, PenTool, Users, Heart, Megaphone, Instagram, Linkedin, Youtube, Twitter, Github } from 'lucide-react';
 import { Button } from '@/app/components/ui/button';
 import { SideShelfMenu } from '@/app/components/SideShelfMenu';
-import alanaLogo from 'figma:asset/811fb296ea4980c4d9de1deb853dd4aea394df50.png';
-import heroImage from 'figma:asset/25ae36fe65f17a52ae42df2b0b7a2a9bbb635f20.png';
-import stellaPhoto from 'figma:asset/4c75ce84cbb045735f7445e1bbc6c9788202372d.png';
-import orbylinePhoto from 'figma:asset/c49b177ac62eddad3993d58f83b957304acbcb87.png';
-import javierPhoto from 'figma:asset/7a7a546290bd274a8867e8b4ae7639133d443c2d.png';
-import paridhiPhoto from 'figma:asset/ee1a394899544270fb3f64fab933530aa490f4b5.png';
-import deliaPhoto from 'figma:asset/0c596642e55515e26676075db609b57b863d0618.png';
-import elahnPhoto from 'figma:asset/130722e91f6dca37606bd6d770d3f7c58f3391ae.png';
-import alexandraPhoto from 'figma:asset/37e60d7fd2e33688d97a4994a05b58f234f6267b.png';
-import unlockLogo from 'figma:asset/6f5d423a18b3f267e243b0d78557a77c5fa8baa5.png';
-import manifestoImage from 'figma:asset/71c515cc9fab5a164b0696fb56f3586251152aa3.png';
-import announceDigitalFashionLogo from 'figma:asset/fd8240a027a6248989e2bb1af572a5f7e1f159e5.png';
-import artizenLogo from 'figma:asset/c9afe603668e574f4c7f78c1f45401c7dda44d6d.png';
-import choiceLogo from 'figma:asset/2d814e63b717f2326d5ac25282eab2905eaebc36.png';
+import { assetUrls } from '@/assets/asset-urls';
 
 // TikTok icon as custom SVG since lucide doesn't have it
 const TikTokIcon = () => (
@@ -33,57 +20,58 @@ interface TeamProps {
   onShowTerms?: () => void;
   onShowPrivacy?: () => void;
   onShowPressKit?: () => void;
+  isWalletConnected?: boolean;
+  onWalletToggle?: () => void;
 }
 
-export function Team({ onClose, onShopArchiveClick, onTeamClick, onAdvertiseClick, onFeaturedCreatorsClick, onShowTerms, onShowPrivacy, onShowPressKit }: TeamProps) {
+export function Team({ 
+  onClose, 
+  onShopArchiveClick, 
+  onTeamClick, 
+  onAdvertiseClick, 
+  onFeaturedCreatorsClick, 
+  onShowTerms, 
+  onShowPrivacy, 
+  onShowPressKit,
+  isWalletConnected = false,
+  onWalletToggle 
+}: TeamProps) {
   const [sheetOpen, setSheetOpen] = useState(false);
-  const [isWalletConnected, setIsWalletConnected] = useState(false);
-
-  const handleWalletToggle = () => {
-    setIsWalletConnected(!isWalletConnected);
-  };
 
   const teamMembers = [
     {
       name: 'Stella Achenbach',
       role: 'Publisher & Editor-in-Chief',
       bio: 'Stella Achenbach is the founder of The ALANA Project and an accomplished designer and active participant in the Web3 space. She oversees operations and organizes ALANAmagazine, driving innovation and community engagement.',
-      image: stellaPhoto,
+      image: assetUrls.stellaPhoto,
       linkedin: 'https://www.linkedin.com/in/stella-achenbach/',
     },
     {
       name: 'Javier Guzman',
       role: 'Partnerships & Community',
       bio: 'Javier has been influential in blockchain since 2016 and in Digital Fashion and Web3 since 2021. He co-founded the Digital Fashion Collective and was a long-standing  community manager at DRESSX.  Blending technology with community and style are but a few of his strenghts.',
-      image: javierPhoto,
+      image: assetUrls.javierPhoto,
       linkedin: 'https://www.linkedin.com/in/javier-guzm%C3%A1n-74183a248/',
-    },
-    {
-      name: 'Elahn Danee',
-      role: 'Podcast Host & Content Curator',
-      bio: 'Elahn is a tech and fashion enthusiast who started by sharing her .NET expertise through popular YouTube series and tech conferences. Now, in her two roles for ALANAmagazine, she examines the convergence of Web3 and fashion technology, merging innovation with style.',
-      image: elahnPhoto,
-      linkedin: 'https://www.linkedin.com/in/elahn-danee/',
     },
     {
       name: 'Delia Mendoza',
       role: 'PR & Marketing',
       bio: 'Delia Mendoza, founder of Delia Mendoza Communications, brings over 15 years of PR expertise across tech, fintech, Web3, and entertainment. Known for securing media in top business, tech and trade outlets, she excels in building impactful communications and branding strategies.',
-      image: deliaPhoto,
+      image: assetUrls.deliaPhoto,
       linkedin: 'https://www.linkedin.com/in/deliamendoza/',
     },
     {
       name: 'Orbyline Studio',
       role: 'Fashion Editorial & 3D',
       bio: 'ORBYLINE is a Milan-based design studio founded by industry experts Nastaran Hashemi and Sogand Nobahar. As co-founders, they are collaborating with ALANAmagazine to develop an innovative 3D fashion editorial that exemplifies the convergence of creativity and technology.',
-      image: orbylinePhoto,
+      image: assetUrls.orbylinePhoto,
       linkedin: 'https://www.linkedin.com/company/orbyline/',
     },
     {
       name: 'Paridhi Dhariwal',
       role: '3D Development',
       bio: 'Paridhi is an India-based digital fashion designer, who is the force behind onclickcloset. She specializes in crafting 3D digital fashion assets for marketing and e-commerce. She aims to create value by merging technology and fashion, bringing brands to the forefront of the new era of XR.',
-      image: paridhiPhoto,
+      image: assetUrls.paridhiPhoto,
       linkedin: 'https://www.linkedin.com/in/paridhi-dhariwal%F0%9F%AA%A9-6263a3187/',
     },
   ];
@@ -96,32 +84,39 @@ export function Team({ onClose, onShopArchiveClick, onTeamClick, onAdvertiseClic
     },
     {
       name: 'Unlock Protocol',
-      logo: unlockLogo,
+      logo: assetUrls.unlockLogo,
       url: 'https://unlock-protocol.com/',
     },
     {
       name: 'Choice',
-      logo: choiceLogo,
+      logo: assetUrls.choiceLogo,
       url: 'https://www.linkedin.com/company/choice-lgbtqia/posts/?feedView=all',
     },
     {
       name: 'Announce Digital Fashion',
-      logo: announceDigitalFashionLogo,
+      logo: assetUrls.announceDigitalFashionLogo,
       url: 'https://www.announcedigitalfashion.com/',
     },
     {
       name: 'Artizen',
-      logo: artizenLogo,
+      logo: assetUrls.artizenLogo,
       url: 'https://artizen.fund/',
     },
   ];
 
   const formerContributors = [
     {
+      name: 'Elahn Danee',
+      role: 'Former Podcast Host & Content Curator',
+      bio: 'Elahn is a tech and fashion enthusiast who started by sharing her .NET expertise through popular YouTube series and tech conferences. In her two roles for ALANAmagazine, she examined the convergence of Web3 and fashion technology, merging innovation with style.',
+      image: assetUrls.elahnPhoto,
+      linkedin: 'https://www.linkedin.com/in/elahn-danee/',
+    },
+    {
       name: 'Alexandra Uytenbogaardt',
       role: 'Former Writer & Editorial Champion',
       bio: 'Alexandra was an in-house writer and editorial champion for ALANAmagazine, bringing compelling storytelling and editorial excellence to our Web3 content. Her dedication to craft and keen editorial eye helped shape our early voice.',
-      image: alexandraPhoto,
+      image: assetUrls.alexandraPhoto,
       linkedin: 'https://www.linkedin.com/in/alexandra-uytenbogaardt/',
     },
   ];
@@ -173,14 +168,14 @@ export function Team({ onClose, onShopArchiveClick, onTeamClick, onAdvertiseClic
               className="flex items-center hover:opacity-80 transition-opacity"
               aria-label="Return to home"
             >
-              <img src={alanaLogo} alt="ALANAmagazine" className="h-[33.6px] w-auto" />
+              <img src={assetUrls.alanaLogo} alt="ALANAmagazine" className="h-[33.6px] w-auto" />
             </button>
 
             {/* Wallet and Menu Icons */}
             <div className="flex items-center gap-4">
               {/* Wallet icon */}
               <button
-                onClick={handleWalletToggle}
+                onClick={onWalletToggle}
                 className={`transition-colors ${
                   isWalletConnected
                     ? 'text-accent hover:text-accent/80'
@@ -214,8 +209,6 @@ export function Team({ onClose, onShopArchiveClick, onTeamClick, onAdvertiseClic
         onClose={() => setSheetOpen(false)}
         currentPage="team"
         onPageChange={() => {}}
-        isWalletConnected={isWalletConnected}
-        onWalletToggle={handleWalletToggle}
         onHomeClick={onClose}
         onShopArchiveClick={onShopArchiveClick}
         onTeamClick={onTeamClick}
@@ -232,7 +225,7 @@ export function Team({ onClose, onShopArchiveClick, onTeamClick, onAdvertiseClic
           {/* Background Image */}
           <div className="absolute inset-0">
             <img
-              src={heroImage}
+              src={assetUrls.heroImageTeam}
               alt="Meet Our Contributors"
               className="w-full h-full object-cover"
               loading="eager"
@@ -249,7 +242,7 @@ export function Team({ onClose, onShopArchiveClick, onTeamClick, onAdvertiseClic
                 Meet the People
               </h1>
               
-              <p className="max-w-2xl text-[20px]">
+              <p className="max-w-2xl text-[18px] md:text-[20px]">
                 A collective of creators, technologists, and fellow communities shaping the future of creativity and Web3 storytelling.
               </p>
 
@@ -299,7 +292,7 @@ export function Team({ onClose, onShopArchiveClick, onTeamClick, onAdvertiseClic
         <section className="px-8 md:px-16 py-16 max-w-6xl mx-auto scroll-mt-20" id="team-members">
           <div className="mb-12">
             <h2 className="mb-4">Our Team</h2>
-            <p className="text-[20px] text-muted-foreground max-w-3xl">
+            <p className="text-[18px] md:text-[20px] text-muted-foreground max-w-3xl">
               We are a small and agile core team. As a product branch of The ALANA Project community, we're inspired by our entire community who supply us with ideas, requests, and vision for each new Edition.
             </p>
           </div>
@@ -348,7 +341,7 @@ export function Team({ onClose, onShopArchiveClick, onTeamClick, onAdvertiseClic
           <div className="px-8 md:px-16 max-w-6xl mx-auto">
             <div className="mb-12 text-center">
               <h2 className="mb-4 text-foreground">Community Partners</h2>
-              <p className="text-[20px] text-foreground/80 max-w-3xl mx-auto">
+              <p className="text-[18px] md:text-[20px] text-foreground/80 max-w-3xl mx-auto">
                 We're proud to collaborate with these organizations and communities that share our vision for the future of digital culture.
               </p>
             </div>
@@ -378,7 +371,7 @@ export function Team({ onClose, onShopArchiveClick, onTeamClick, onAdvertiseClic
         <section className="px-8 md:px-16 py-16 max-w-6xl mx-auto" id="opportunities">
           <div className="mb-12">
             <h2 className="mb-4">Ways to Contribute</h2>
-            <p className="text-[20px] text-muted-foreground max-w-3xl">
+            <p className="text-[18px] md:text-[20px] text-muted-foreground max-w-3xl">
               Choose the path that resonates with you. Every contribution helps us grow and strengthen the phygitial creator and Web3 community.
             </p>
           </div>
@@ -498,11 +491,11 @@ export function Team({ onClose, onShopArchiveClick, onTeamClick, onAdvertiseClic
           <div className="px-8 md:px-16 max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 gap-12 items-stretch">
               {/* Left Column - Manifesto Image */}
-              <div className="flex justify-center">
+              <div className="flex justify-center items-center">
                 <img
-                  src={manifestoImage}
+                  src={assetUrls.manifestoImage}
                   alt="ALANA 10 Principles of a Good Community"
-                  className="w-full rounded-none rounded-br-[25px] border border-foreground"
+                  className="w-full h-auto object-contain rounded-none rounded-br-[25px] border border-foreground"
                 />
               </div>
 
@@ -510,7 +503,7 @@ export function Team({ onClose, onShopArchiveClick, onTeamClick, onAdvertiseClic
               <div className="flex flex-col justify-between">
                 <div>
                   <h2 className="mb-6 text-foreground">Our Community Values</h2>
-                  <p className="text-foreground/80 text-[18px] mb-6 leading-relaxed">
+                  <p className="text-foreground/80 text-[16px] md:text-[18px] mb-6 leading-relaxed">
                     Our values guide everything we do – from how we build technology to how we support our community members.
                   </p>
                   
@@ -518,23 +511,23 @@ export function Team({ onClose, onShopArchiveClick, onTeamClick, onAdvertiseClic
                   <ul className="space-y-3 mb-8">
                     <li className="flex items-start gap-3">
                       <span className="text-[rgb(38,36,36)] text-2xl leading-none">•</span>
-                      <span className="text-foreground text-[18px]">Continuous Decentralization</span>
+                      <span className="text-foreground text-[16px] md:text-[18px]">Continuous Decentralization</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="text-[rgb(38,36,36)] text-2xl leading-none">•</span>
-                      <span className="text-foreground text-[18px]">Inclusive by Design</span>
+                      <span className="text-foreground text-[16px] md:text-[18px]">Inclusive by Design</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="text-[rgb(38,36,36)] text-2xl leading-none">•</span>
-                      <span className="text-foreground text-[18px]">Build Accessibly</span>
+                      <span className="text-foreground text-[16px] md:text-[18px]">Build Accessibly</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="text-[rgb(38,36,36)] text-2xl leading-none">•</span>
-                      <span className="text-foreground text-[18px]">Learn & Grow Together</span>
+                      <span className="text-foreground text-[16px] md:text-[18px]">Learn & Grow Together</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="text-[rgb(38,36,36)] text-2xl leading-none">•</span>
-                      <span className="text-foreground text-[18px]">Create with Multi-Purpose</span>
+                      <span className="text-foreground text-[16px] md:text-[18px]">Create with Multi-Purpose</span>
                     </li>
                   </ul>
                 </div>
@@ -542,7 +535,7 @@ export function Team({ onClose, onShopArchiveClick, onTeamClick, onAdvertiseClic
                 {/* Action Buttons */}
                 <div className="flex flex-col gap-4">
                   <a
-                    href="https://app.unlock-protocol.com/checkout?id=ed49cb2f-536c-45c6-9232-101abdad33b8"
+                    href="https://app.unlock-protocol.com/checkout?id=fc22b412-bd47-49bb-8b5c-7415f277a935"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full"
@@ -575,7 +568,7 @@ export function Team({ onClose, onShopArchiveClick, onTeamClick, onAdvertiseClic
         <section className="px-8 md:px-16 py-16 max-w-6xl mx-auto" id="former-contributors">
           <div className="mb-12">
             <h2 className="mb-4">Former Contributors</h2>
-            <p className="text-[20px] text-muted-foreground max-w-3xl">
+            <p className="text-[18px] md:text-[20px] text-muted-foreground max-w-3xl">
               We're deeply thankful to everyone listed here for helping shape ALANAmagazine and its<br />ongoing evolution.
             </p>
           </div>

@@ -13,8 +13,6 @@ interface SideShelfMenuProps {
   onClose: () => void;
   currentPage: string;
   onPageChange: (page: string) => void;
-  isWalletConnected: boolean;
-  onWalletToggle: () => void;
   onShopArchiveClick?: () => void;
   onTeamClick?: () => void;
   onGetInvolvedClick?: () => void;
@@ -28,8 +26,6 @@ export function SideShelfMenu({
   onClose,
   currentPage,
   onPageChange,
-  isWalletConnected,
-  onWalletToggle,
   onShopArchiveClick,
   onTeamClick,
   onGetInvolvedClick,
@@ -101,20 +97,6 @@ export function SideShelfMenu({
               {item.label}
             </button>
           ))}
-          
-          {/* Divider and Wallet Button directly under menu items */}
-          <div className="pt-4">
-            <div className="h-px bg-foreground mb-4" />
-            <Button
-              onClick={() => {
-                onWalletToggle();
-                onClose();
-              }}
-              className="w-full bg-accent hover:bg-foreground text-accent-foreground hover:text-background font-sans px-8 h-10 rounded-none rounded-br-[25px] transition-colors"
-            >
-              {isWalletConnected ? 'Disconnect Wallet' : 'Connect Wallet'}
-            </Button>
-          </div>
         </nav>
 
         {/* Social Media Icons at Bottom */}

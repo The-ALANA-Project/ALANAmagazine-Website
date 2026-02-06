@@ -106,7 +106,7 @@ export function NFTMarketplace() {
     <section id="nft-marketplace" className="px-8 md:px-16 py-12 md:py-16 max-w-6xl mx-auto scroll-mt-24">
       <div className="mb-8">
         <h2 className="mb-2">Art Marketplace - AIR Edition</h2>
-        <p className="text-muted-foreground text-[18px]">
+        <p className="text-muted-foreground text-[16px] md:text-[18px]">
           Exclusive digital collectibles from the featured artist of the ALANAmagazine AIR Edition. Each NFT is curated and powered by{' '}
           <a 
             href="https://unlock-protocol.com/" 

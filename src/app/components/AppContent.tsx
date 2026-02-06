@@ -24,18 +24,7 @@ import { SEOHead } from '@/app/components/SEOHead';
 import { ArticleFlipbook } from '@/app/components/ArticleFlipbook';
 import { SubscribeForm } from '@/app/components/SubscribeForm';
 import { toast } from 'sonner';
-import alanaLogo from 'figma:asset/811fb296ea4980c4d9de1deb853dd4aea394df50.png';
-import heroImage from 'figma:asset/5d7ab7c1b8fac42ab11fd12886703a1b94d4f87f.png';
-import txbiAvatar from 'figma:asset/85169175ee8c48188843ae81c0dfe183f3855853.png';
-import digitalmonkeyAvatar from 'figma:asset/a84932caa80e35c5445579c6feb03abd1a843d36.png';
-import sunnyoneAvatar from 'figma:asset/f3cbb5f4b3e4a1290a0cedba95663e05b5ea5c33.png';
-import cryptoPhilanthropySpread from 'figma:asset/d2925f799bf2ec5bda26ef1c7a1cd99693f8c4a6.png';
-import danHoopertSpread from 'figma:asset/6a240e6c6bf2c9b20f7af460c0b169e400d051da.png';
-import faeryMagicSpread from 'figma:asset/6ae345a6bea0e9dd5b5e313a47529db5d36d47a4.png';
-import nilsOtterAvatar from 'figma:asset/af0c89cbb734961b2a7925883f118e1cba539a3c.png';
-import astroporcelainAvatar from 'figma:asset/af7188657f475f2cc535f2ccf45a4866d3991bea.png';
-import silentBoomSpread from 'figma:asset/b40d50f1c673817169887659bd7c6b42ec4a797d.png';
-import shellpenWritesAvatar from 'figma:asset/7eee50b4c6ceda8a362d2fed7ab812055d1f4d74.png';
+import { assetUrls } from '@/assets/asset-urls';
 
 export function AppContent() {
   const [sheetOpen, setSheetOpen] = useState(false);
@@ -137,9 +126,9 @@ export function AppContent() {
       description: 'A new field of research rather than just donations via cryptocurrencies',
       category: 'Founders & Business',
       readTime: 8,
-      author: { name: 'Nils Otter', avatar: nilsOtterAvatar, link: 'https://www.linkedin.com/in/nils-otter-a23446131/' },
+      author: { name: 'Nils Otter', avatar: assetUrls.nilsOtterAvatar, link: 'https://www.linkedin.com/in/nils-otter-a23446131/' },
       date: 'AIR Edition',
-      image: cryptoPhilanthropySpread,
+      image: assetUrls.cryptoPhilanthropySpread,
     },
     {
       id: '2',
@@ -147,9 +136,9 @@ export function AppContent() {
       description: 'Infinite curiosity mixed with an unquenchable thirst for knowledge are a major contributing factors to Dan Hoopert\'s intricately beautiful 3D designs',
       category: 'Artist Feature',
       readTime: 6,
-      author: { name: 'astroporcelain', avatar: astroporcelainAvatar, link: 'https://www.linkedin.com/in/alexandra-uytenbogaardt/' },
+      author: { name: 'astroporcelain', avatar: assetUrls.astroporcelainAvatar, link: 'https://www.linkedin.com/in/alexandra-uytenbogaardt/' },
       date: 'AIR Edition',
-      image: danHoopertSpread,
+      image: assetUrls.danHoopertSpread,
     },
     {
       id: '3',
@@ -157,9 +146,9 @@ export function AppContent() {
       description: 'Nigeria\'s Crypto Journey: The Good, The Bad, The Ugly.',
       category: 'Crypto Destinations',
       readTime: 10,
-      author: { name: 'Shellpen Writes', avatar: shellpenWritesAvatar, link: 'https://www.linkedin.com/in/shellpen-writes-a9a490260/' },
+      author: { name: 'Shellpen Writes', avatar: assetUrls.shellpenWritesAvatar, link: 'https://www.linkedin.com/in/shellpen-writes-a9a490260/' },
       date: 'AIR Edition',
-      image: silentBoomSpread,
+      image: assetUrls.silentBoomSpread,
     },
   ];
 
@@ -194,19 +183,19 @@ export function AppContent() {
     {
       name: 'txbi',
       role: 'Community Member',
-      avatar: txbiAvatar,
+      avatar: assetUrls.txbiAvatar,
       content: 'Web3 content is ubiquitous, but ALANAmagazine delivers it with unmatched depth, quality and creativity! Super stoked for the second edition!',
     },
     {
       name: 'digitalmonkey',
       role: 'Community Member',
-      avatar: digitalmonkeyAvatar,
+      avatar: assetUrls.digitalmonkeyAvatar,
       content: 'I got the physical copy of this book - it\'s gorgeous and a visual delight. Nothing else like it around. Fashion, cultural essays, web3 tech. What more can you ask for?',
     },
     {
       name: 'sunnyone',
       role: 'Community Member',
-      avatar: sunnyoneAvatar,
+      avatar: assetUrls.sunnyoneAvatar,
       content: 'Love this magazine! Unique perspective, unique design, can\'t wait for the next edition 💚.',
     },
   ];
@@ -322,6 +311,8 @@ export function AppContent() {
         setShowPressKit(true);
         window.scrollTo({ top: 0, behavior: 'instant' });
       }}
+      isWalletConnected={isConnected}
+      onWalletToggle={handleWalletToggle}
     />;
   }
 
@@ -362,6 +353,8 @@ export function AppContent() {
         setShowPressKit(true);
         window.scrollTo({ top: 0, behavior: 'instant' });
       }}
+      isWalletConnected={isConnected}
+      onWalletToggle={handleWalletToggle}
     />;
   }
 
@@ -445,6 +438,8 @@ export function AppContent() {
         setShowPressKit(true);
         window.scrollTo({ top: 0, behavior: 'instant' });
       }}
+      isWalletConnected={isConnected}
+      onWalletToggle={handleWalletToggle}
     />;
   }
 
@@ -469,7 +464,7 @@ export function AppContent() {
               className="flex items-center hover:opacity-80 transition-opacity"
               aria-label="Return to home"
             >
-              <img src={alanaLogo} alt="ALANAmagazine" className="h-[33.6px] w-auto transition-transform hover:scale-95 active:scale-90" />
+              <img src={assetUrls.alanaLogo} alt="ALANAmagazine" className="h-[33.6px] w-auto transition-transform hover:scale-95 active:scale-90" />
             </button>
 
             {/* Wallet and Menu Icons */}
@@ -511,8 +506,6 @@ export function AppContent() {
         onClose={() => setSheetOpen(false)}
         currentPage={activeMenuItem}
         onPageChange={handlePageChange}
-        isWalletConnected={isConnected}
-        onWalletToggle={handleWalletToggle}
         onHomeClick={() => {
           setSheetOpen(false);
           window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -542,7 +535,7 @@ export function AppContent() {
           {/* Background Image */}
           <div className="absolute inset-0">
             <img
-              src={heroImage}
+              src={assetUrls.heroImage}
               alt="ALANAmagazine Hero"
               className="w-full h-full object-cover scale-[1.3]"
               loading="eager"
@@ -597,7 +590,35 @@ export function AppContent() {
         {/* Sample Reading Section */}
         <section className="w-full mt-16 pb-6">
           <div className="max-w-6xl mx-auto px-8 md:px-16">
-            <SampleReadingSection />
+            <section>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+                {/* Left Column - Main Text */}
+                <div className="space-y-6">
+                  <h2 className="mb-2">About ALANAmagazine</h2>
+                  <p className="text-foreground/90 leading-relaxed text-[16px] md:text-[18px]">
+                    ALANAmagazine is a high‑gloss, phygital magazine where technology, culture, and lifestyle naturally overlap. It is made for curious readers, creatives, and tech professionals who want to understand how these different interconnected topics connect with the emergence of Web3.
+                  </p>
+                  <p className="text-foreground/90 leading-relaxed text-[16px] md:text-[18px]">
+                    With clean layouts and just the right amount of playful detail we, at <a href="https://the-alana-project.xyz/" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">The ALANA Project</a> community, take great care to curate this collectible magazine once per year.
+                  </p>
+                  <p className="text-foreground/90 leading-relaxed text-[16px] md:text-[18px]">
+                    Each edition is released as a thoughtfully crafted digital and print experience you can read, collect (NFT), and come back to as the world evolves.
+                  </p>
+                </div>
+
+                {/* Right Column - Visual Element */}
+                <div className="relative">
+                  <div className="aspect-square rounded-none rounded-br-[25px] border border-accent/20 overflow-hidden bg-secondary/20">
+                    <img
+                      src={assetUrls.aboutMagazineGif}
+                      alt="ALANAmagazine Full Shot"
+                      className="w-full h-full object-cover"
+                      loading="eager"
+                    />
+                  </div>
+                </div>
+              </div>
+            </section>
           </div>
         </section>
 

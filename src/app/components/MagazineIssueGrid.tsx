@@ -47,7 +47,7 @@ function MagazineIssueCard({ issue, onNavigateToSubscribe, onNavigateToSampleRea
   const [isVerifying, setIsVerifying] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
   const { address, isConnected } = useAccount();
-  const appKit = useAppKit();
+  const { open: openWalletModal } = useAppKit();
 
   // Check NFT ownership when wallet connects (only for EARTH Edition)
   useEffect(() => {
@@ -104,10 +104,17 @@ function MagazineIssueCard({ issue, onNavigateToSubscribe, onNavigateToSampleRea
   const handleDownloadClick = async () => {
     if (!isConnected || !address) {
       // Open wallet connection modal instead of showing error
-      try {
-        await appKit.open();
-      } catch (error) {
-        console.error('Error opening wallet modal:', error);
+      if (openWalletModal) {
+        try {
+          await openWalletModal();
+        } catch (error) {
+          console.error('Error opening wallet modal:', error);
+        }
+      } else {
+        // Fallback if appKit is not ready
+        toast.error('Please connect your wallet first', {
+          description: 'You need to connect your wallet to verify NFT ownership and download the magazine.'
+        });
       }
       return;
     }
@@ -267,7 +274,7 @@ function MagazineIssueCard({ issue, onNavigateToSubscribe, onNavigateToSampleRea
         </h3>
 
         {issue.series && (
-          <h4 className="text-[18px] font-sans font-medium text-foreground/70">
+          <h4 className="text-[16px] md:text-[18px] font-sans font-medium text-foreground/70">
             {issue.series}
           </h4>
         )}

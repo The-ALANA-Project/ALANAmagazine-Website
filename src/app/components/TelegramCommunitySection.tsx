@@ -1,5 +1,5 @@
 import { Button } from '@/app/components/ui/button';
-import telegramBg from 'figma:asset/cb270e760776c68dad83b41cfdd1ef232188bb11.png';
+import { assetUrls } from '@/assets/asset-urls';
 
 export function TelegramCommunitySection() {
   return (

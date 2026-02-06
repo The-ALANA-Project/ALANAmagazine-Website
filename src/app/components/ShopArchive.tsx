@@ -6,10 +6,7 @@ import { SideShelfMenu } from '@/app/components/SideShelfMenu';
 import { HelpSection } from '@/app/components/HelpSection';
 import { useAccount } from 'wagmi';
 import { useAppKit } from '@reown/appkit/react';
-import alanaLogo from 'figma:asset/811fb296ea4980c4d9de1deb853dd4aea394df50.png';
-import heroImage from 'figma:asset/c0f30c4e2b42998667adf0a99b639637b2aa1961.png';
-import earthEditionCover from 'figma:asset/fc56667d1cf1abdc05af55fb9171320a45a9d9b4.png';
-import airEditionCover from 'figma:asset/5d7ab7c1b8fac42ab11fd12886703a1b94d4f87f.png';
+import { assetUrls } from '@/assets/asset-urls';
 
 interface ShopArchiveProps {
   onClose: () => void;
@@ -55,7 +52,7 @@ export function ShopArchive({ onClose, onShopArchiveClick, onTeamClick, onGetInv
       issueNumber: '42',
       series: 'The Elements 2/4',
       date: '2026',
-      coverImage: airEditionCover,
+      coverImage: assetUrls.airEditionCover,
       description: 'The AIR Edition explores themes of freedom, innovation, and the boundless possibilities of Web3 technology. Featuring exclusive interviews with leading designers and innovators shaping the future of digital culture.',
     },
     {
@@ -64,7 +61,7 @@ export function ShopArchive({ onClose, onShopArchiveClick, onTeamClick, onGetInv
       issueNumber: 'The Elements 1/4',
       series: 'The Elements 1/4',
       date: '2025',
-      coverImage: earthEditionCover,
+      coverImage: assetUrls.earthEditionCover,
       description: 'The EARTH Edition was our inaugural issue and therefore holds a special place in our hearts. We joined forces with future-forward thinking tech start-ups and showcased a diverse array of creators.',
     },
   ];
@@ -101,7 +98,7 @@ export function ShopArchive({ onClose, onShopArchiveClick, onTeamClick, onGetInv
               className="flex items-center hover:opacity-80 transition-opacity"
               aria-label="Return to home"
             >
-              <img src={alanaLogo} alt="ALANAmagazine" className="h-[33.6px] w-auto" />
+              <img src={assetUrls.alanaLogo} alt="ALANAmagazine" className="h-[33.6px] w-auto" />
             </button>
 
             {/* Wallet and Menu Icons */}
@@ -142,17 +139,12 @@ export function ShopArchive({ onClose, onShopArchiveClick, onTeamClick, onGetInv
         onClose={() => setSheetOpen(false)}
         currentPage="shop"
         onPageChange={() => {}}
-        isWalletConnected={isConnected}
-        onWalletToggle={handleWalletToggle}
         onHomeClick={onClose}
         onShopArchiveClick={onShopArchiveClick}
         onTeamClick={onTeamClick}
         onGetInvolvedClick={onGetInvolvedClick}
         onAdvertiseClick={onAdvertiseClick}
-        onFeaturedCreatorsClick={() => {
-          setSheetOpen(false);
-          if (onFeaturedCreatorsClick) onFeaturedCreatorsClick();
-        }}
+        onFeaturedCreatorsClick={onFeaturedCreatorsClick}
       />
 
       {/* Main Content */}
@@ -162,9 +154,9 @@ export function ShopArchive({ onClose, onShopArchiveClick, onTeamClick, onGetInv
           {/* Background Image */}
           <div className="absolute inset-0">
             <img
-              src={heroImage}
+              src={assetUrls.heroImageShop}
               alt="Shop + Archive"
-              className="w-full h-full object-cover scale-[1.3]"
+              className="w-full h-full object-cover scale-[1.3] object-[65%_center] md:object-center"
               loading="eager"
               fetchpriority="high"
             />
@@ -179,7 +171,7 @@ export function ShopArchive({ onClose, onShopArchiveClick, onTeamClick, onGetInv
                 Shop & Archive
               </h1>
               
-              <p className="max-w-2xl text-[20px]">
+              <p className="max-w-2xl text-[18px] md:text-[20px]">
                 Discover our collection of former and upcoming ALANAmagazine™ Editions. Download sample reads and subscribe to our newsletter so you don't miss the new release.
               </p>
 
@@ -210,7 +202,7 @@ export function ShopArchive({ onClose, onShopArchiveClick, onTeamClick, onGetInv
         <section id="coming-soon" className="px-8 md:px-16 py-12 md:py-16 max-w-6xl mx-auto scroll-mt-24">
           <div className="mb-8">
             <h2 className="mb-4">Coming Soon</h2>
-            <p className="text-[20px] text-muted-foreground max-w-2xl">
+            <p className="text-[18px] md:text-[20px] text-muted-foreground max-w-2xl">
               ALANAmagazine AIR Edition - Q2/2026
             </p>
           </div>
@@ -277,7 +269,7 @@ export function ShopArchive({ onClose, onShopArchiveClick, onTeamClick, onGetInv
             <h2 className="mb-4 text-[rgb(38,36,36)]">
               AIR Edition Pre-Sale Concluded
             </h2>
-            <p className="text-[#262424] text-[20px] leading-relaxed mb-6 max-w-3xl">
+            <p className="text-[#262424] text-[18px] md:text-[20px] leading-relaxed mb-6 max-w-3xl">
               We're thrilled to announce that our AIR Edition (the second edition of ALANAmagazine) successfully pre-sold <span className="font-bold text-[rgb(38,36,36)]">148 magazines</span> through our campaign with the Artizen Fund. Thank you to everyone who supported us!
             </p>
             <a 

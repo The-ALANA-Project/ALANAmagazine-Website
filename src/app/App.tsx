@@ -1,3 +1,6 @@
+// Initialize AppKit BEFORE any other imports
+import '@/config/appkit-init';
+
 import { WalletConnectProvider } from '@/app/components/WalletConnectProvider';
 import { AppContent } from '@/app/components/AppContent';
 import { ErrorBoundary } from '@/app/components/ErrorBoundary';

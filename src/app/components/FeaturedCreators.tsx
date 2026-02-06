@@ -2,16 +2,7 @@ import { useState, useEffect } from 'react';
 import { Menu, X, Wallet } from 'lucide-react';
 import { Button } from './ui/button';
 import { SideShelfMenu } from './SideShelfMenu';
-import alanaLogo from 'figma:asset/811fb296ea4980c4d9de1deb853dd4aea394df50.png';
-import javogImage from 'figma:asset/345e583b2e44802d631607e40e59e57e79636073.png';
-import javogArtwork1 from 'figma:asset/33638695efd9fb8a0733e824c07a9aa43b473b64.png';
-import javogArtwork2 from 'figma:asset/36d0eb2f248758251439afee65c8bf6ff42d06dd.png';
-import javogArtwork3 from 'figma:asset/a07c55fc6069afede3ec5c9cd35fcaee365d6764.png';
-import sofiaImage from 'figma:asset/97597b7a927990bbe980a3fe7a9ac1ab1e673769.png';
-import sofiaArtwork1 from 'figma:asset/1827b7985714f459b0bd9c18fd8443da2c2b676f.png';
-import sofiaArtwork2 from 'figma:asset/9ed7e2149213e2e910be03ea6dcaf73a463c7f3f.png';
-import sofiaArtwork3 from 'figma:asset/8393c4d81bf44f6e9a25eff5f901bc59d95a5413.png';
-import heroImage1 from 'figma:asset/c4a8e85ee17595ee302524e1ada4393aa2ee6405.png';
+import { assetUrls } from '@/assets/asset-urls';
 
 interface FeaturedCreatorsProps {
   onClose: () => void;
@@ -22,6 +13,8 @@ interface FeaturedCreatorsProps {
   onShowTerms?: () => void;
   onShowPrivacy?: () => void;
   onShowPressKit?: () => void;
+  isWalletConnected?: boolean;
+  onWalletToggle?: () => void;
 }
 
 export function FeaturedCreators({
@@ -33,32 +26,29 @@ export function FeaturedCreators({
   onShowTerms,
   onShowPrivacy,
   onShowPressKit,
+  isWalletConnected = false,
+  onWalletToggle,
 }: FeaturedCreatorsProps) {
   const [sheetOpen, setSheetOpen] = useState(false);
-  const [isWalletConnected, setIsWalletConnected] = useState(false);
   const [currentHeroSlide, setCurrentHeroSlide] = useState(0);
   const [shuffledCreators, setShuffledCreators] = useState<typeof featuredCreators>([]);
-
-  const handleWalletToggle = () => {
-    setIsWalletConnected(!isWalletConnected);
-  };
 
   // Hero slideshow images
   const heroImages = [
     {
-      src: heroImage1,
+      src: 'https://images.unsplash.com/photo-1590968802291-f1e1f86cde34?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx2aWJyYW50JTIwc3RyZWV0JTIwYXJ0JTIwZ3JhZmZpdGl8ZW58MXx8fHwxNzcwMDQyMjAzfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
       alt: 'Featured Artist Work 1',
     },
     {
-      src: 'https://images.unsplash.com/photo-1590968802291-f1e1f86cde34?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx2aWJyYW50JTIwc3RyZWV0JTIwYXJ0JTIwZ3JhZmZpdGl8ZW58MXx8fHwxNzcwMDQyMjAzfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+      src: 'https://images.unsplash.com/photo-1713188090500-a4fb0d2cf309?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb2xvcmZ1bCUyMGFic3RyYWN0JTIwZGlnaXRhbCUyMGFydHxlbnwxfHx8fDE3NzAwMDEyODB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
       alt: 'Featured Artist Work 2',
     },
     {
-      src: 'https://images.unsplash.com/photo-1713188090500-a4fb0d2cf309?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb2xvcmZ1bCUyMGFic3RyYWN0JTIwZGlnaXRhbCUyMGFydHxlbnwxfHx8fDE3NzAwMDEyODB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+      src: 'https://images.unsplash.com/photo-1582985043002-751d768ded08?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1cmJhbiUyMGFydCUyMG11cmFsJTIwd2FsbHxlbnwxfHx8fDE3NzAwODAzMzB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
       alt: 'Featured Artist Work 3',
     },
     {
-      src: 'https://images.unsplash.com/photo-1582985043002-751d768ded08?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1cmJhbiUyMGFydCUyMG11cmFsJTIwd2FsbHxlbnwxfHx8fDE3NzAwODAzMzB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+      src: 'https://images.unsplash.com/photo-1590968802291-f1e1f86cde34?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx2aWJyYW50JTIwc3RyZWV0JTIwYXJ0JTIwZ3JhZmZpdGl8ZW58MXx8fHwxNzcwMDQyMjAzfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
       alt: 'Featured Artist Work 4',
     },
   ];
@@ -79,23 +69,23 @@ export function FeaturedCreators({
       name: 'JavoG',
       role: 'AI Fashion Creator',
       bio: 'Exploring novel forms of dynamic streetwear fashion to discover how individual ego can dissolve and become a community\'s strength.',
-      image: javogImage,
+      image: assetUrls.javogImage,
       portfolio: 'https://www.linkedin.com/in/javier-guzm%C3%A1n-74183a248/en/',
       featured: 'MinimAIFashion - MAIF. Gen AI Fashion.',
       buttonText: 'Contact',
       artworks: [
-        { src: javogArtwork1, alt: 'JavoG Artwork 1', title: 'Urban Flow #1', price: '50 USDC', available: true, edition: '1/10', description: 'A dynamic exploration of street fashion through AI-generated designs. This piece captures the essence of urban movement and contemporary style.' },
-        { src: javogArtwork2, alt: 'JavoG Artwork 2', title: 'Street Vision #2', price: '50 USDC', available: true, edition: '1/10', description: 'Bold patterns merge with minimalist aesthetics in this striking vision of future streetwear. A celebration of individual expression in digital space.' },
-        { src: javogArtwork3, alt: 'JavoG Artwork 3', title: 'AI Fashion #3', price: '50 USDC', available: false, edition: 'Sold Out', description: 'Pushing boundaries between technology and textile design. This sold-out piece represents the intersection of artificial intelligence and human creativity.' },
+        { src: assetUrls.javogArtwork1, alt: 'JavoG Artwork 1', title: 'Urban Flow #1', price: '50 USDC', available: true, edition: '1/10', description: 'A dynamic exploration of street fashion through AI-generated designs. This piece captures the essence of urban movement and contemporary style.' },
+        { src: assetUrls.javogArtwork2, alt: 'JavoG Artwork 2', title: 'Street Vision #2', price: '50 USDC', available: true, edition: '1/10', description: 'Bold patterns merge with minimalist aesthetics in this striking vision of future streetwear. A celebration of individual expression in digital space.' },
+        { src: assetUrls.javogArtwork3, alt: 'JavoG Artwork 3', title: 'AI Fashion #3', price: '50 USDC', available: false, edition: 'Sold Out', description: 'Pushing boundaries between technology and textile design. This sold-out piece represents the intersection of artificial intelligence and human creativity.' },
       ],
     },
     {
       id: '2',
-      name: 'Artist Name Two',
+      name: 'Sogand Nobahar',
       role: 'Photographer',
       bio: 'Documentary photographer capturing the evolving landscape of digital culture and emerging technologies.',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800',
-      portfolio: '#',
+      image: assetUrls.sogandNobaharImage,
+      portfolio: 'https://medium.com/@sogandnobahar',
       featured: 'AIR Edition Photography Series',
       buttonText: 'Contact',
       artworks: [
@@ -109,13 +99,13 @@ export function FeaturedCreators({
       name: 'Sofia Lopez de Romaña',
       role: 'Jewelry Designer & Silversmith',
       bio: 'M4T3RI4 phygital jewelry digital handmade in Peru.',
-      image: sofiaImage,
+      image: assetUrls.sofiaImage,
       portfolio: 'https://www.linkedin.com/in/sofia-lopez-de-roma%C3%B1a-8b338028/',
       featured: 'M4T3RI4',
       buttonText: 'Contact',
       artworks: [
         { 
-          src: sofiaArtwork1, 
+          src: assetUrls.sofiaArtwork1, 
           alt: 'alga-coral earrings', 
           title: 'alga-coral earrings', 
           price: '120 USD', 
@@ -125,7 +115,7 @@ export function FeaturedCreators({
           link: 'https://materia.com.pe/products/4lg4-earrings'
         },
         { 
-          src: sofiaArtwork2, 
+          src: assetUrls.sofiaArtwork2, 
           alt: 'alga-coral ear cuff', 
           title: 'alga-coral ear cuff', 
           price: '70 USD', 
@@ -135,7 +125,7 @@ export function FeaturedCreators({
           link: 'https://materia.com.pe/products/4lg4-ear-cuff'
         },
         { 
-          src: sofiaArtwork3, 
+          src: assetUrls.sofiaArtwork3, 
           alt: 'alga-coral ring', 
           title: 'alga-coral ring', 
           price: '150 USD', 
@@ -165,14 +155,14 @@ export function FeaturedCreators({
               className="flex items-center hover:opacity-80 transition-opacity"
               aria-label="Return to home"
             >
-              <img src={alanaLogo} alt="ALANAmagazine" className="h-[33.6px] w-auto" />
+              <img src={assetUrls.alanaLogo} alt="ALANAmagazine" className="h-[33.6px] w-auto" />
             </button>
 
             {/* Wallet and Menu Icons */}
             <div className="flex items-center gap-4">
               {/* Wallet icon */}
               <button
-                onClick={handleWalletToggle}
+                onClick={onWalletToggle}
                 className={`transition-colors ${
                   isWalletConnected
                     ? 'text-accent hover:text-accent/80'
@@ -206,8 +196,6 @@ export function FeaturedCreators({
         onClose={() => setSheetOpen(false)}
         currentPage="creators"
         onPageChange={() => {}}
-        isWalletConnected={isWalletConnected}
-        onWalletToggle={handleWalletToggle}
         onHomeClick={onClose}
         onShopArchiveClick={() => {
           setSheetOpen(false);

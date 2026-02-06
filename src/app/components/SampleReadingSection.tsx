@@ -1,16 +1,14 @@
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import slideImage1 from 'figma:asset/6b769cc6b6b988ade4ff91fa1504e602ab631649.png';
-import slideImage2 from 'figma:asset/2036f32e7856b6075261d4bde21f01c023805e32.png';
-import slideImage3 from 'figma:asset/68687b62870e79cae8ced07ea1d18482bc703120.png';
+import { assetUrls } from '@/assets/asset-urls';
 
 export function SampleReadingSection() {
   const [currentImage, setCurrentImage] = useState(0);
 
   const images = [
-    slideImage1,
-    slideImage2,
-    slideImage3,
+    assetUrls.slideImage1,
+    assetUrls.slideImage2,
+    assetUrls.slideImage3,
   ];
 
   const nextImage = () => {
@@ -36,13 +34,13 @@ export function SampleReadingSection() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
         {/* Left Column - Main Text */}
         <div className="space-y-6">
-          <p className="text-foreground/90 leading-relaxed text-[18px]">
+          <p className="text-foreground/90 leading-relaxed text-[16px] md:text-[18px]">
             ALANAmagazine is a high‑gloss, phygital magazine where technology, culture, and lifestyle naturally overlap. It is made for curious readers, creatives, and tech professionals who want to understand how these different interconnected topics connect with the emergence of Web3.
           </p>
-          <p className="text-foreground/90 leading-relaxed text-[18px]">
+          <p className="text-foreground/90 leading-relaxed text-[16px] md:text-[18px]">
             With clean layouts and just the right amount of playful detail we, at <a href="https://the-alana-project.xyz/" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">The ALANA Project</a> community, take great care to curate this collectible magazine once per year.
           </p>
-          <p className="text-foreground/90 leading-relaxed text-[18px]">
+          <p className="text-foreground/90 leading-relaxed text-[16px] md:text-[18px]">
             Each edition is released as a thoughtfully crafted digital and print experience you can read, collect (NFT), and come back to as the world evolves.
           </p>
         </div>
@@ -60,6 +58,14 @@ export function SampleReadingSection() {
                   className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
                     index === currentImage ? 'opacity-100' : 'opacity-0'
                   }`}
+                  loading="eager"
+                  onError={(e) => {
+                    console.error(`Failed to load slide image ${index + 1}:`, image);
+                    console.error('Error details:', e);
+                  }}
+                  onLoad={() => {
+                    console.log(`Successfully loaded slide image ${index + 1}:`, image);
+                  }}
                 />
               ))}
             </div>

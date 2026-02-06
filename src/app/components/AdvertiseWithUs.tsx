@@ -2,15 +2,7 @@ import { useState } from 'react';
 import { Menu, Wallet, X } from 'lucide-react';
 import { Button } from '@/app/components/ui/button';
 import { SideShelfMenu } from '@/app/components/SideShelfMenu';
-import alanaLogo from 'figma:asset/811fb296ea4980c4d9de1deb853dd4aea394df50.png';
-import heroImage from 'figma:asset/8e0f98c45cf07fad8112bfea7a726b8b68570655.png';
-import exposureTierImage from 'figma:asset/655d7b6ffb047241195d7e5c1942db2acd429e63.png';
-import keyTierImage from 'figma:asset/d4d32d87ad7eb7a0f821dc728649934852681257.png';
-import impactTierImage from 'figma:asset/fb500ed87902cb52670adef131123573c1430ca4.png';
-import premiumTierImage from 'figma:asset/bd2ea9161a958d843efe40305984b98c6137ef7f.png';
-import tokenEngineeringLogo from 'figma:asset/e62aaf4625a983c83a62f198e1fd6e3a661b78ad.png';
-import givethLogo from 'figma:asset/d5cfa03517803abe47a15e3643eabb35c1a03a3d.png';
-import mutaniLogo from 'figma:asset/dee738b8c5ab67e07127ff859563ce3d879c19ed.png';
+import { assetUrls } from '@/assets/asset-urls';
 
 interface AdvertiseWithUsProps {
   onClose: () => void;
@@ -21,15 +13,23 @@ interface AdvertiseWithUsProps {
   onShowTerms?: () => void;
   onShowPrivacy?: () => void;
   onShowPressKit?: () => void;
+  isWalletConnected?: boolean;
+  onWalletToggle?: () => void;
 }
 
-export function AdvertiseWithUs({ onClose, onShopArchiveClick, onTeamClick, onGetInvolvedClick, onAdvertiseClick, onShowTerms, onShowPrivacy, onShowPressKit }: AdvertiseWithUsProps) {
+export function AdvertiseWithUs({ 
+  onClose, 
+  onShopArchiveClick, 
+  onTeamClick, 
+  onGetInvolvedClick, 
+  onAdvertiseClick, 
+  onShowTerms, 
+  onShowPrivacy, 
+  onShowPressKit,
+  isWalletConnected = false,
+  onWalletToggle 
+}: AdvertiseWithUsProps) {
   const [sheetOpen, setSheetOpen] = useState(false);
-  const [isWalletConnected, setIsWalletConnected] = useState(false);
-
-  const handleWalletToggle = () => {
-    setIsWalletConnected(!isWalletConnected);
-  };
 
   const packages = [
     {
@@ -41,7 +41,7 @@ export function AdvertiseWithUs({ onClose, onShopArchiveClick, onTeamClick, onGe
         'Logo & brand visibility',
       ],
       contactNote: 'Purchase and contact us at contact@the-alana-project.xyz to coordinate your advertisement.',
-      image: exposureTierImage,
+      image: assetUrls.exposureTierImage,
     },
     {
       name: 'Key Tier',
@@ -52,7 +52,7 @@ export function AdvertiseWithUs({ onClose, onShopArchiveClick, onTeamClick, onGe
         'Enhanced brand presence',
       ],
       contactNote: 'Send proof of purchase to contact@the-alana-project.xyz to coordinate your advertisement.',
-      image: keyTierImage,
+      image: assetUrls.keyTierImage,
     },
     {
       name: 'Impact Tier',
@@ -63,7 +63,7 @@ export function AdvertiseWithUs({ onClose, onShopArchiveClick, onTeamClick, onGe
         'Maximum visual impact',
       ],
       contactNote: 'Purchase and contact us at contact@the-alana-project.xyz to coordinate your advertisement.',
-      image: impactTierImage,
+      image: assetUrls.impactTierImage,
     },
     {
       name: 'Premium Tier',
@@ -74,7 +74,7 @@ export function AdvertiseWithUs({ onClose, onShopArchiveClick, onTeamClick, onGe
         'Written by our editorial team',
       ],
       contactNote: 'Contact us at contact@the-alana-project.xyz with proof of purchase to coordinate an interview and final article.',
-      image: premiumTierImage,
+      image: assetUrls.premiumTierImage,
     },
   ];
 
@@ -92,14 +92,14 @@ export function AdvertiseWithUs({ onClose, onShopArchiveClick, onTeamClick, onGe
               className="flex items-center hover:opacity-80 transition-opacity"
               aria-label="Return to home"
             >
-              <img src={alanaLogo} alt="ALANAmagazine" className="h-[33.6px] w-auto" />
+              <img src={assetUrls.alanaLogo} alt="ALANAmagazine" className="h-[33.6px] w-auto" />
             </button>
 
             {/* Wallet and Menu Icons */}
             <div className="flex items-center gap-4">
               {/* Wallet icon */}
               <button
-                onClick={handleWalletToggle}
+                onClick={onWalletToggle}
                 className={`transition-colors ${
                   isWalletConnected
                     ? 'text-accent hover:text-accent/80'
@@ -133,13 +133,11 @@ export function AdvertiseWithUs({ onClose, onShopArchiveClick, onTeamClick, onGe
         onClose={() => setSheetOpen(false)}
         currentPage="advertise"
         onPageChange={() => {}}
-        isWalletConnected={isWalletConnected}
-        onWalletToggle={handleWalletToggle}
         onHomeClick={onClose}
         onShopArchiveClick={onShopArchiveClick}
         onTeamClick={onTeamClick}
         onGetInvolvedClick={onGetInvolvedClick}
-        onAdvertiseClick={onAdvertiseClick}
+        onAdvertiseClick={() => setSheetOpen(false)}
       />
 
       {/* Main Content */}
@@ -149,7 +147,7 @@ export function AdvertiseWithUs({ onClose, onShopArchiveClick, onTeamClick, onGe
           {/* Background Image */}
           <div className="absolute inset-0">
             <img
-              src={heroImage}
+              src={assetUrls.heroImageAdvertise}
               alt="Advertise With Us"
               className="w-full h-full object-cover scale-[1.3]"
               loading="eager"
@@ -163,10 +161,10 @@ export function AdvertiseWithUs({ onClose, onShopArchiveClick, onTeamClick, onGe
           <div className="relative min-h-[77vh] flex items-center px-8 md:px-16 max-w-6xl mx-auto">
             <div className="max-w-3xl text-foreground">
               <h1 className="leading-tight">
-                Advertise With Us
+                Advertise <br className="md:hidden" />With Us
               </h1>
               
-              <p className="max-w-2xl text-[20px]">
+              <p className="max-w-2xl text-[18px] md:text-[20px]">
                 Reach a highly engaged audience of Web3 pioneers, creators, and decision-makers shaping the future of digital culture.
               </p>
 
@@ -244,7 +242,7 @@ export function AdvertiseWithUs({ onClose, onShopArchiveClick, onTeamClick, onGe
           <div className="px-8 md:px-16 max-w-6xl mx-auto">
             <div className="mb-12">
               <h2 className="mb-4">Advertising Packages</h2>
-              <p className="text-[20px] text-muted-foreground max-w-3xl">
+              <p className="text-[18px] md:text-[20px] text-muted-foreground max-w-3xl">
                 Choose the package that best fits your brand's, project's or community's needs. All tiers are NFTs and secured by blockchain technology. Please ensure you have a crypto wallet ready for purchase.
               </p>
             </div>
@@ -294,7 +292,7 @@ export function AdvertiseWithUs({ onClose, onShopArchiveClick, onTeamClick, onGe
         <section className="px-8 md:px-16 py-16 max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="mb-4">Trusted By</h2>
-            <p className="text-[20px] text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-[18px] md:text-[20px] text-muted-foreground max-w-3xl mx-auto">
               Join innovative brands, projects and communities who've partnered with ALANAmagazine to reach new audiences in Web3 and beyond.
             </p>
           </div>
@@ -306,7 +304,7 @@ export function AdvertiseWithUs({ onClose, onShopArchiveClick, onTeamClick, onGe
               rel="noopener noreferrer"
               className="transition-transform duration-300 hover:scale-103"
             >
-              <img src={tokenEngineeringLogo} alt="Token Engineering Academy" className="h-24 w-auto" />
+              <img src={assetUrls.tokenEngineeringLogo} alt="Token Engineering Academy" className="h-24 w-auto" />
             </a>
             <a 
               href="https://giveth.io/" 
@@ -314,7 +312,7 @@ export function AdvertiseWithUs({ onClose, onShopArchiveClick, onTeamClick, onGe
               rel="noopener noreferrer"
               className="transition-transform duration-300 hover:scale-103"
             >
-              <img src={givethLogo} alt="Giveth" className="h-24 w-auto" />
+              <img src={assetUrls.givethLogo} alt="Giveth" className="h-24 w-auto" />
             </a>
             <a 
               href="https://www.mutani.io/" 
@@ -322,7 +320,7 @@ export function AdvertiseWithUs({ onClose, onShopArchiveClick, onTeamClick, onGe
               rel="noopener noreferrer"
               className="transition-transform duration-300 hover:scale-103"
             >
-              <img src={mutaniLogo} alt="Mutani" className="h-24 w-auto" />
+              <img src={assetUrls.mutaniLogo} alt="Mutani" className="h-24 w-auto" />
             </a>
           </div>
         </section>

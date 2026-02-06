@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Menu, X, Wallet } from 'lucide-react';
 import { Button } from '@/app/components/ui/button';
 import { SideShelfMenu } from '@/app/components/SideShelfMenu';
-import alanaLogo from 'figma:asset/811fb296ea4980c4d9de1deb853dd4aea394df50.png';
+import { assetUrls } from '@/assets/asset-urls';
 
 interface PrivacyPolicyProps {
   onClose: () => void;
@@ -35,11 +35,14 @@ export function PrivacyPolicy({ onClose, onShowTerms }: PrivacyPolicyProps) {
           <div className="flex h-20 items-center justify-between">
             {/* Logo - clickable to go back */}
             <button 
-              onClick={onClose} 
+              onClick={() => {
+                onClose();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }} 
               className="flex items-center hover:opacity-80 transition-opacity"
               aria-label="Return to home"
             >
-              <img src={alanaLogo} alt="ALANAmagazine" className="h-[33.6px] w-auto" />
+              <img src={assetUrls.alanaLogo} alt="ALANAmagazine" className="h-[33.6px] w-auto" />
             </button>
 
             {/* Wallet and Menu Icons */}
@@ -93,63 +96,63 @@ export function PrivacyPolicy({ onClose, onShowTerms }: PrivacyPolicyProps) {
         <div className="space-y-8">
           <div>
             <h3 className="text-[30px] font-mono mb-4">1. Introduction</h3>
-            <p className="leading-relaxed text-[18px]">
+            <p className="leading-relaxed text-[16px] md:text-[18px]">
               In this Privacy Policy, we will collectively refer to The ALANA Project´s Services as it stated in the Terms of Service. This Privacy Policy, together with the respective "Terms" and any other contractual terms which apply between you and us, set out how Personal Data (defined below) will be used. In this Privacy Policy, "Personal Data" means data, whether true or not, about an individual who can be identified either from that data or from that data when combined with other information to which an entity has access or is likely to have access.
             </p>
           </div>
 
           <div>
             <h3 className="text-[30px] font-mono mb-4">2. Collection of Personal Data</h3>
-            <p className="leading-relaxed text-[18px]">
+            <p className="leading-relaxed text-[16px] md:text-[18px]">
               When you use our Services, we do not collect any kind of information from and about you, your devices, and your interaction with the Services. Our Services are not associated with or require mandatory access to your personal data. Furthermore, or Services are built in the use of tools that protect the anonymity of their users. It is part of our philosophy, the strict protection of personal data, The ALANA Project is not built on the use of any kind of private data. Our business is not built on the use, benefit, or transaction of any kind of personal data. Furthermore, our business does not collect personal data, besides the Services functionality requirements itself like payments or deliveries, among others.
             </p>
           </div>
 
           <div>
-            <h4 className="text-[18px] font-sans font-medium text-foreground/70 mb-4">2.1 Email Management</h4>
-            <p className="leading-relaxed text-[18px]">
+            <h4 className="text-[16px] md:text-[18px] font-sans font-medium text-foreground/70 mb-4">2.1 Email Management</h4>
+            <p className="leading-relaxed text-[16px] md:text-[18px]">
               As stated, we do not use or store private information for the purposes of our Services or any other matter. In the case of emails, this information is stored only for coordination purposes of ongoing projects. This information is not stored or used for purposes other than the scheduling of activities or coordination of projects.
             </p>
           </div>
 
           <div>
-            <h4 className="text-[18px] font-sans font-medium text-foreground/70 mb-4">2.2 Third-party Information Requirements</h4>
-            <p className="leading-relaxed text-[18px]">
+            <h4 className="text-[16px] md:text-[18px] font-sans font-medium text-foreground/70 mb-4">2.2 Third-party Information Requirements</h4>
+            <p className="leading-relaxed text-[16px] md:text-[18px]">
               When purchasing a product or service provided by The ALANA Project, personal information could be collected by third party providers. For example, for processing payments by using traditional payment methods such as credit cards and for distributing the product or service itself like delivery companies. In those cases, the information would be handled by trusted third parties in compliance with their respective privacy policies and security measures.
             </p>
           </div>
 
           <div>
-            <h4 className="text-[18px] font-sans font-medium text-foreground/70 mb-4">2.3 Third-party Payment Information Requests</h4>
-            <p className="leading-relaxed text-[18px]">
+            <h4 className="text-[16px] md:text-[18px] font-sans font-medium text-foreground/70 mb-4">2.3 Third-party Payment Information Requests</h4>
+            <p className="leading-relaxed text-[16px] md:text-[18px]">
               The ALANA Project relies on "Unlock Protocol" (for ALANAmagazine™) which is associated with payment processors (Stripe) to execute payments that happens via traditional methods (e.g. Apple Pay, Google pay or credit card). As the above-mentioned data is entirely handled by third parties, The ALANA Project does not have access to connect wallets addresses with personal information.
             </p>
           </div>
 
           <div>
-            <h4 className="text-[18px] font-sans font-medium text-foreground/70 mb-4">2.4 Connect Your Wallet</h4>
-            <p className="leading-relaxed text-[18px]">
+            <h4 className="text-[16px] md:text-[18px] font-sans font-medium text-foreground/70 mb-4">2.4 Connect Your Wallet</h4>
+            <p className="leading-relaxed text-[16px] md:text-[18px]">
               ALANAmagazine™ and other Services are structured to request the connection of your wallet. This connection is through a Web3 system which is based on blockchain technology to protect personal data. By accepting the Terms & Conditions and the Privacy Policy of ALANAmagazine™ or any other service of The ALANA Project your personal data is protected by the aforementioned terms.
             </p>
           </div>
 
           <div>
             <h3 className="text-[30px] font-mono mb-4">3. Language</h3>
-            <p className="leading-relaxed text-[18px]">
+            <p className="leading-relaxed text-[16px] md:text-[18px]">
               To the extent permitted by law, where there is a non-English version of this Privacy Policy, then in the event of any inconsistency between the English version and the translation of this Privacy Policy into any other language, the English version shall prevail.
             </p>
           </div>
 
           <div>
             <h3 className="text-[30px] font-mono mb-4">4. Disclaimer</h3>
-            <p className="leading-relaxed text-[18px]">
+            <p className="leading-relaxed text-[16px] md:text-[18px]">
               We shall not be liable for any voluntary disclosure of Personal Data by you to other users, devices, or third-party tools or service providers or devices, in connection with the use of the Services.
             </p>
           </div>
 
           <div>
             <h3 className="text-[30px] font-mono mb-4">5. Contact Us</h3>
-            <p className="leading-relaxed text-[18px]">
+            <p className="leading-relaxed text-[16px] md:text-[18px]">
               Should you require further information about this Policy, please do not hesitate to contact at:{' '}
               <a 
                 href="mailto:contact@the-alana-project.xyz" 
