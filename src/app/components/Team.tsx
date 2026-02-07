@@ -347,7 +347,7 @@ export function Team({
             </div>
 
             {/* Logo Carousel/Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 items-center justify-items-center max-w-5xl mx-auto">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 items-center justify-items-center max-w-5xl mx-auto">
               {communityPartners.map((partner, index) => (
                 <a 
                   key={index}

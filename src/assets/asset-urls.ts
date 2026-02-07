@@ -11,7 +11,7 @@ export const assetUrls = {
   heroImage: 'https://pink-quick-lizard-297.mypinata.cloud/ipfs/bafybeicskvss3y5v3k3ehclzvd2swsky242zwe2zorgvxp4gtqcorfrna4/Hero_Homepage.png',
   heroImageAir: 'https://pink-quick-lizard-297.mypinata.cloud/ipfs/bafybeicskvss3y5v3k3ehclzvd2swsky242zwe2zorgvxp4gtqcorfrna4/Hero_Homepage.png',
   heroImageShop: 'https://pink-quick-lizard-297.mypinata.cloud/ipfs/bafybeicskvss3y5v3k3ehclzvd2swsky242zwe2zorgvxp4gtqcorfrna4/Hero_ShopXArchive.png',
-  heroImageTeam: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&h=800&fit=crop',
+  heroImageTeam: 'https://images.unsplash.com/photo-1597200381847-30ec200eeb9a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   heroImageAdvertise: 'https://pink-quick-lizard-297.mypinata.cloud/ipfs/bafybeicskvss3y5v3k3ehclzvd2swsky242zwe2zorgvxp4gtqcorfrna4/Hero_AdvertiseWithUs.png',
   heroImageFeatured: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1200&h=800&fit=crop',
   

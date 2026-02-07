@@ -40,55 +40,57 @@ export function CookieConsent() {
   if (!showBanner) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-[100] bg-foreground text-background border-t-2 border-accent shadow-lg">
-      <div className="px-6 md:px-8 py-6 max-w-6xl mx-auto">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+    <div className={`fixed bottom-0 left-0 right-0 z-[100] bg-foreground text-background border-t border-accent shadow-lg transition-transform duration-500 ease-out ${
+      showBanner ? 'translate-y-0' : 'translate-y-full'
+    }`}>
+      <div className="px-6 md:px-8 py-6 max-w-6xl mx-auto relative">
+        {/* Close button - mobile: top-right, desktop: top-right of container */}
+        <button
+          onClick={handleDecline}
+          className="absolute top-6 right-6 md:top-6 md:right-8 text-background hover:text-background/70 transition-colors"
+          aria-label="Close cookie banner"
+        >
+          <X className="w-5 h-5" />
+        </button>
+        
+        <div className="flex flex-col md:grid md:grid-cols-[1fr_auto] md:gap-x-6 md:gap-y-2 gap-6 pr-8 md:pr-0">
+          {/* Heading */}
+          <h3 className="mb-2 md:mb-0 text-background md:col-start-1 md:row-start-1">We Value Your Privacy</h3>
+          
           {/* Content */}
-          <div className="flex-1 pr-4">
-            <h3 className="text-lg font-bold mb-2 text-background">We Value Your Privacy</h3>
-            <p className="text-sm text-background/90 leading-relaxed">
-              We use cookies and Google Analytics to improve your experience and understand how our site is used. 
-              By clicking "Accept", you consent to our use of cookies and analytics tracking. 
-              You can learn more in our{' '}
-              <a 
-                href="#privacy" 
-                className="underline hover:text-accent transition-colors"
-                onClick={(e) => {
-                  e.preventDefault();
-                  // This would need to be wired up to your privacy policy navigation
-                  window.dispatchEvent(new CustomEvent('showPrivacyPolicy'));
-                }}
-              >
-                Privacy Policy
-              </a>.
-            </p>
-          </div>
+          <p className="text-sm text-background/90 leading-relaxed md:col-start-1 md:row-start-2">
+            We use cookies and Google Analytics to improve your experience and understand how our site is used. 
+            By clicking "Accept", you consent to our use of cookies and analytics tracking. 
+            You can learn more in our{' '}
+            <a 
+              href="#privacy" 
+              className="underline hover:text-accent transition-colors"
+              onClick={(e) => {
+                e.preventDefault();
+                // This would need to be wired up to your privacy policy navigation
+                window.dispatchEvent(new CustomEvent('showPrivacyPolicy'));
+              }}
+            >
+              Privacy Policy
+            </a>.
+          </p>
 
-          {/* Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+          {/* Buttons - aligned with paragraph text */}
+          <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto md:flex-shrink-0 md:col-start-2 md:row-start-2 md:self-start">
             <Button
               onClick={handleDecline}
               variant="outline"
-              className="bg-transparent border-2 border-background text-background hover:bg-background/10 rounded-none rounded-br-[15px] font-sans px-6 h-10"
+              className="bg-transparent border border-background text-background hover:bg-background hover:text-foreground rounded-none rounded-br-[25px] font-sans px-6 h-10 transition-colors"
             >
               Decline
             </Button>
             <Button
               onClick={handleAccept}
-              className="bg-accent hover:bg-accent/90 text-foreground rounded-none rounded-br-[15px] font-sans px-6 h-10 font-bold"
+              className="bg-accent border border-accent hover:bg-foreground hover:border-accent hover:text-accent text-foreground rounded-none rounded-br-[25px] font-sans px-6 h-10 font-bold transition-colors font-normal"
             >
               Accept Cookies
             </Button>
           </div>
-
-          {/* Close button */}
-          <button
-            onClick={handleDecline}
-            className="absolute top-4 right-4 md:relative md:top-0 md:right-0 text-background/70 hover:text-background transition-colors"
-            aria-label="Close cookie banner"
-          >
-            <X className="w-5 h-5" />
-          </button>
         </div>
       </div>
     </div>

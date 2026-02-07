@@ -100,6 +100,17 @@ export function AppContent() {
     }
   }, [isConnected, address]);
 
+  // Listen for Privacy Policy event from cookie banner
+  useEffect(() => {
+    const handleShowPrivacyEvent = () => {
+      setShowPrivacy(true);
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    };
+
+    window.addEventListener('showPrivacyPolicy', handleShowPrivacyEvent);
+    return () => window.removeEventListener('showPrivacyPolicy', handleShowPrivacyEvent);
+  }, []);
+
   const handlePageChange = (page: string) => {
     setActiveMenuItem(page);
     // Reset scroll to top for all page changes
@@ -219,14 +230,20 @@ export function AppContent() {
   if (showPrivacy) {
     // Reset scroll when Privacy page loads
     window.scrollTo({ top: 0, behavior: 'instant' });
-    return <PrivacyPolicy 
-      key="privacy-page" 
-      onClose={() => setShowPrivacy(false)}
-      onShowTerms={() => {
-        setShowPrivacy(false);
-        setShowTerms(true);
-      }}
-    />;
+    return (
+      <>
+        <PrivacyPolicy 
+          key="privacy-page" 
+          onClose={() => setShowPrivacy(false)}
+          onShowTerms={() => {
+            setShowPrivacy(false);
+            setShowTerms(true);
+          }}
+        />
+        {/* Keep Cookie Consent visible */}
+        <CookieConsent />
+      </>
+    );
   }
 
   // Show Shop + Archive page if active
