@@ -86,7 +86,7 @@ export function CookieConsent() {
             </Button>
             <Button
               onClick={handleAccept}
-              className="bg-accent border border-accent hover:bg-foreground hover:border-accent hover:text-accent text-foreground rounded-none rounded-br-[25px] font-sans px-6 h-10 font-bold transition-colors font-normal"
+              className="bg-accent border border-accent hover:bg-foreground hover:border-background hover:text-accent text-foreground rounded-none rounded-br-[25px] font-sans px-6 h-10 font-bold transition-colors font-normal"
             >
               Accept Cookies
             </Button>

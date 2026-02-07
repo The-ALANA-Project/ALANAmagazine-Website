@@ -69,7 +69,7 @@ export function SubscribeForm() {
       ) : (
         <>
           <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row items-stretch">
-            <div className="flex-1 relative border border-foreground rounded-none bg-background h-10">
+            <div className="flex-1 relative border border-foreground sm:border-r-0 rounded-none bg-background h-9">
               {/* Email Icon with Separator */}
               <div className="absolute left-0 top-0 bottom-0 flex items-center z-10">
                 <div className="flex items-center h-full px-4">
@@ -90,7 +90,7 @@ export function SubscribeForm() {
             <Button
               type="submit"
               disabled={isLoading}
-              className="bg-foreground hover:bg-accent text-background hover:text-accent-foreground font-sans px-8 h-10 rounded-none rounded-br-[25px] transition-colors"
+              className="bg-foreground hover:bg-accent border border-foreground text-background hover:text-foreground font-sans px-8 rounded-none rounded-br-[25px] transition-colors"
             >
               {isLoading ? (
                 <>

@@ -111,6 +111,14 @@ export function AppContent() {
     return () => window.removeEventListener('showPrivacyPolicy', handleShowPrivacyEvent);
   }, []);
 
+  // Scroll to top when returning to home page
+  useEffect(() => {
+    const isOnHomePage = !showTerms && !showPrivacy && !showShopArchive && !showTeam && !showAdvertise && !showPressKit && !showFeaturedCreators;
+    if (isOnHomePage && activeMenuItem === 'home') {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+  }, [showTerms, showPrivacy, showShopArchive, showTeam, showAdvertise, showPressKit, showFeaturedCreators, activeMenuItem]);
+
   const handlePageChange = (page: string) => {
     setActiveMenuItem(page);
     // Reset scroll to top for all page changes
@@ -477,6 +485,14 @@ export function AppContent() {
             <button 
               onClick={() => {
                 setActiveMenuItem('home');
+                // Reset all page states to ensure we return to home
+                setShowTerms(false);
+                setShowPrivacy(false);
+                setShowShopArchive(false);
+                setShowTeam(false);
+                setShowAdvertise(false);
+                setShowPressKit(false);
+                setShowFeaturedCreators(false);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
               className="flex items-center hover:opacity-80 transition-opacity"
