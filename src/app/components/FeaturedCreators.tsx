@@ -47,12 +47,12 @@ export function FeaturedCreators({
       alt: 'Featured Artist Work 1',
     },
     {
-      src: 'https://images.unsplash.com/photo-1713188090500-a4fb0d2cf309?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb2xvcmZ1bCUyMGFic3RyYWN0JTIwZGlnaXRhbCUyMGFydHxlbnwxfHx8fDE3NzAwMDEyODB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-      alt: 'Featured Artist Work 2',
+      src: 'https://pink-quick-lizard-297.mypinata.cloud/ipfs/bafybeidqojbacjwgs4i53mrmqpzihgr4mytbbaijp6ub7cr6c5kkn4xdou/MyCity%2520tehran%2520red%2520-blue%2520backdrop.jpg',
+      alt: 'MyCity Tehran Cuff by Sogand Nobahar',
     },
     {
-      src: 'https://images.unsplash.com/photo-1582985043002-751d768ded08?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1cmJhbiUyMGFydCUyMG11cmFsJTIwd2FsbHxlbnwxfHx8fDE3NzAwODAzMzB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-      alt: 'Featured Artist Work 3',
+      src: 'https://pink-quick-lizard-297.mypinata.cloud/ipfs/bafybeibdxoyyletrkrmg5gz7rtgq5s2jry3q5hfzoh2sngmitngfhyrnze/Creator-Materia-Product1.jpeg',
+      alt: 'Alga-Coral Earrings by Sofia Lopez de Romaña',
     },
     {
       src: 'https://images.unsplash.com/photo-1590968802291-f1e1f86cde34?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx2aWJyYW50JTIwc3RyZWV0JTIwYXJ0JTIwZ3JhZmZpdGl8ZW58MXx8fHwxNzcwMDQyMjAzfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
@@ -89,16 +89,43 @@ export function FeaturedCreators({
     {
       id: '2',
       name: 'Sogand Nobahar',
-      role: 'Photographer',
-      bio: 'Documentary photographer capturing the evolving landscape of digital culture and emerging technologies.',
+      role: 'Creative Director & Consultant',
+      bio: 'As a creative director and consultant, I explore the world of contemporary design across various fields, from physical to digital jewelry. With skills in graphic design, photography, 3D modeling, and animation, I bring a fresh, creative approach to every project I handle.',
       image: assetUrls.sogandNobaharImage,
-      portfolio: 'https://medium.com/@sogandnobahar',
-      featured: 'AIR Edition Photography Series',
+      portfolio: 'https://www.linkedin.com/in/sogandnobahar/',
+      featured: 'Nobahar Design',
       buttonText: 'Contact',
       artworks: [
-        { src: 'https://images.unsplash.com/photo-1632679760635-55966a6e3d42?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBwb3J0cmFpdCUyMHBob3RvZ3JhcGh5fGVufDF8fHx8MTc3MDAxNTkxNnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral', alt: 'Photographer Artwork 1', title: 'Portrait Study #1', price: '75 USDC', available: true, edition: '1/5', description: 'An intimate portrait capturing the raw emotion and authenticity of human connection. Shot with natural lighting to emphasize genuine expression.' },
-        { src: 'https://images.unsplash.com/photo-1573747786524-3363056521de?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1cmJhbiUyMGRvY3VtZW50YXJ5JTIwcGhvdG9ncmFwaHl8ZW58MXx8fHwxNzcwMDc5ODk1fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral', alt: 'Photographer Artwork 2', title: 'Urban Documentary #2', price: '75 USDC', available: true, edition: '1/5', description: 'Documentary photography that reveals the hidden stories within city landscapes. A moment frozen in time, telling tales of urban life.' },
-        { src: 'https://images.unsplash.com/photo-1654077366879-f22f18afc7d5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzdHJlZXQlMjBwaG90b2dyYXBoeSUyMGNhbmRpZHxlbnwxfHx8fDE3NzAwNzk4OTV8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral', alt: 'Photographer Artwork 3', title: 'Street Moments #3', price: '75 USDC', available: true, edition: '1/5', description: 'Candid street photography capturing unscripted moments of everyday beauty. This piece celebrates the spontaneous poetry found in ordinary scenes.' },
+        { 
+          src: assetUrls.sogandArtwork1, 
+          alt: 'MyCity Tehran rings', 
+          title: 'MyCity Tehran rings', 
+          price: '€69,00', 
+          available: true, 
+          edition: 'Limited Edition', 
+          description: 'A single sweep of curves echoes the silhouette of Milad Tower, the needle-point landmark visible from almost every angle of Tehran. Consequently, the ring lets you carry a fragment of the city wherever you go.',
+          link: 'https://www.nobahardesign.com/onlineshop/mycitytehran-ring/'
+        },
+        { 
+          src: assetUrls.sogandArtwork2, 
+          alt: 'MyCity Tehran cuffs', 
+          title: 'MyCity Tehran cuffs', 
+          price: '€260,00', 
+          available: true, 
+          edition: 'Limited Edition', 
+          description: 'A single sweep of curves echoes the silhouette of Milad Tower, the needle-point landmark visible from almost every angle of Tehran. Consequently, the cuff bracelet lets you carry a fragment of the city wherever you go.',
+          link: 'https://www.nobahardesign.com/onlineshop/mycity-tehran-wide-cuff/'
+        },
+        { 
+          src: assetUrls.sogandArtwork3, 
+          alt: 'Penombre rings', 
+          title: 'Penombre rings', 
+          price: '€90,00', 
+          available: true, 
+          edition: 'Limited Edition', 
+          description: 'Created for Milan Fashion Week 2022, the Penombre MFW ring, as part of the Penombre series, marks a new phase in Nobahar Design\'s research on proportion, tone, and reflection. Each ring is printed layer by layer and finished by hand, making every piece slightly different in depth and colour.',
+          link: 'https://www.nobahardesign.com/onlineshop/penombre-mfw2022-ring/'
+        },
       ],
     },
     {
@@ -165,8 +192,8 @@ export function FeaturedCreators({
 
   // Filter creators based on unlock status
   const visibleCreators = shuffledCreators.filter(creator => {
-    // Hide JavoG and Sogand Nobahar unless unlocked
-    if ((creator.name === 'JavoG' || creator.name === 'Sogand Nobahar') && !isUnlocked) {
+    // Hide only JavoG unless unlocked (Sogand is now public)
+    if (creator.name === 'JavoG' && !isUnlocked) {
       return false;
     }
     return true;
