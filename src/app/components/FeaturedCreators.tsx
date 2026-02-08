@@ -89,8 +89,8 @@ export function FeaturedCreators({
     {
       id: '2',
       name: 'Sogand Nobahar',
-      role: 'Creative Director & Consultant',
-      bio: 'As a creative director and consultant, I explore the world of contemporary design across various fields, from physical to digital jewelry. With skills in graphic design, photography, 3D modeling, and animation, I bring a fresh, creative approach to every project I handle.',
+      role: 'Multidisciplinary Designer, Artist & Creative Consultant',
+      bio: 'I create contemporary work across jewelry, wall sculpture, photography, and digital art, moving between physical objects and digital editions. My practice blends industrial precision with emotional storytelling through form, color, and light. Based in Italy, I also collaborate with artists and brands as a creative director and consultant.',
       image: assetUrls.sogandNobaharImage,
       portfolio: 'https://www.linkedin.com/in/sogandnobahar/',
       featured: 'Nobahar Design',
@@ -123,7 +123,7 @@ export function FeaturedCreators({
           price: '€90,00', 
           available: true, 
           edition: 'Limited Edition', 
-          description: 'Created for Milan Fashion Week 2022, the Penombre MFW ring, as part of the Penombre series, marks a new phase in Nobahar Design\'s research on proportion, tone, and reflection. Each ring is printed layer by layer and finished by hand, making every piece slightly different in depth and colour.',
+          description: 'Part of the Penombre collection, an ongoing reflection on duality, material balance, and emotion through structure. Each ring is built with SLS technology and finished manually to keep small, natural variations that give life to the form.',
           link: 'https://www.nobahardesign.com/onlineshop/penombre-mfw2022-ring/'
         },
       ],
