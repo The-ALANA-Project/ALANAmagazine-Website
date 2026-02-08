@@ -9,7 +9,7 @@ interface SEOHeadProps {
 
 export function SEOHead({
   title = "ALANAmagazine™ - Where Tech, Culture & Lifestyle Collide",
-  description = "At ALANAmagazine™ we explore how Web3 is reshaping technology, creativity, culture, and the way we live. The first onchain-first phygital magazine merging creativity and technology.",
+  description = "Explore how Web3 is reshaping technology, creativity, and culture. The first onchain-first phygital magazine merging innovation and design.",
   image = "https://pink-quick-lizard-297.mypinata.cloud/ipfs/bafkreictfmoajfiry4wxcx7g7k6gjuotj237drxqaatjlbvuwi2wmsuuo4",
   url = "https://alanamagazine.xyz" 
 }: SEOHeadProps) {
@@ -71,6 +71,15 @@ export function SEOHead({
     setMetaTag('language', 'English');
     setMetaTag('revisit-after', '7 days');
     setMetaTag('format-detection', 'telephone=no');
+
+    // Add canonical URL
+    let canonicalLink = document.querySelector("link[rel='canonical']") as HTMLLinkElement;
+    if (!canonicalLink) {
+      canonicalLink = document.createElement('link');
+      canonicalLink.rel = 'canonical';
+      document.head.appendChild(canonicalLink);
+    }
+    canonicalLink.href = url;
 
   }, [title, description, image, url]);
 

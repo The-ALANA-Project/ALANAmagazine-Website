@@ -32,7 +32,7 @@ export function ArticleCard({
       <div className="relative aspect-[16/10] overflow-hidden">
         <img
           src={image}
-          alt={title}
+          alt={`${title} - ${category} article featured in ALANAmagazine`}
           className="w-full h-full object-cover"
           loading="lazy"
         />

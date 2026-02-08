@@ -10,7 +10,7 @@ export function TelegramCommunitySection() {
           Our friendly community is here to support you every step of the way.
         </p>
         <a
-          href="https://t.me/+1To9sD5l3T8zMjIy"
+          href="https://t.me/+Z0cAQeeZvfdmNjQy"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center justify-center bg-foreground text-background font-sans text-[16px] px-8 h-10 rounded-none rounded-br-[25px] transition-all hover:!bg-[#DCC2FE] hover:!text-foreground hover:outline hover:outline-1 hover:outline-foreground"

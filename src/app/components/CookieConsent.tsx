@@ -62,17 +62,17 @@ export function CookieConsent() {
             We use cookies and Google Analytics to improve your experience and understand how our site is used. 
             By clicking "Accept", you consent to our use of cookies and analytics tracking. 
             You can learn more in our{' '}
-            <a 
-              href="#privacy" 
+            <button
+              type="button"
               className="underline hover:text-accent transition-colors"
               onClick={(e) => {
                 e.preventDefault();
-                // This would need to be wired up to your privacy policy navigation
+                // This triggers the privacy policy page in AppContent
                 window.dispatchEvent(new CustomEvent('showPrivacyPolicy'));
               }}
             >
               Privacy Policy
-            </a>.
+            </button>.
           </p>
 
           {/* Buttons - aligned with paragraph text */}

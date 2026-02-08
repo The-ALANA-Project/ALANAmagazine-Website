@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, Wallet } from 'lucide-react';
+import { Menu, X, Wallet, Linkedin, Twitter } from 'lucide-react';
 import { Button } from './ui/button';
 import { SideShelfMenu } from './SideShelfMenu';
 import { assetUrls } from '@/assets/asset-urls';
@@ -482,7 +482,8 @@ export function FeaturedCreators({
       {/* Footer */}
       <footer className="border-t border-foreground">
         <div className="px-8 md:px-16 py-8 max-w-6xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+            {/* Left: Legal Links */}
             <div className="flex w-full md:w-auto justify-between gap-4 md:gap-6">
               <a href="#" className="text-[16px] pb-2 text-muted-foreground hover:text-accent transition-colors" onClick={(e) => { e.preventDefault(); if (onShowTerms) onShowTerms(); }}>
                 Terms of Service
@@ -494,6 +495,41 @@ export function FeaturedCreators({
                 Press Kit
               </a>
             </div>
+
+            {/* Center: Social Links */}
+            <div className="flex items-center gap-4">
+              <a 
+                href="https://x.com/alana_xyz" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-accent transition-colors"
+                aria-label="Follow us on X (Twitter)"
+              >
+                <Twitter className="w-5 h-5" />
+              </a>
+              <a 
+                href="https://www.linkedin.com/company/the-alana-project" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-accent transition-colors"
+                aria-label="Follow us on LinkedIn"
+              >
+                <Linkedin className="w-5 h-5" />
+              </a>
+              <a 
+                href="https://t.me/+Z0cAQeeZvfdmNjQy" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-accent transition-colors"
+                aria-label="Join our Telegram community"
+              >
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.223-.548.223l.188-2.85 5.18-4.68c.223-.198-.054-.308-.346-.11l-6.4 4.03-2.76-.918c-.6-.187-.612-.6.125-.89l10.782-4.156c.5-.18.943.11.78.89z"/>
+                </svg>
+              </a>
+            </div>
+
+            {/* Right: Copyright */}
             <p className="text-[14px] text-muted-foreground font-mono pt-[0px] pr-[0px] pb-[8px] pl-[0px]">
               © 2026 The ALANA Project
             </p>

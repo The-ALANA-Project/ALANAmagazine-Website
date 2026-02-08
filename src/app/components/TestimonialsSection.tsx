@@ -34,7 +34,7 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
             <div className="flex items-center gap-3 mt-auto">
               <img
                 src={testimonial.avatar}
-                alt={testimonial.name}
+                alt={`${testimonial.name} - ${testimonial.role} avatar photo`}
                 className="w-10 h-10 rounded-full object-cover"
                 loading="lazy"
               />
