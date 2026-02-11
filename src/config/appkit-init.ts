@@ -77,6 +77,8 @@ if (typeof window !== 'undefined' && import.meta.env.DEV) {
     const message = args[0]?.toString() || '';
     if (message.includes('Lit is in dev mode') || 
         message.includes('w3m-router-container') ||
+        message.includes('change-in-update') ||
+        message.includes('scheduled an update') ||
         message.includes('Multiple versions of Lit loaded') ||
         message.includes('WalletConnect Core is already initialized')) {
       return;
@@ -89,6 +91,8 @@ if (typeof window !== 'undefined' && import.meta.env.DEV) {
     const message = args[0]?.toString() || '';
     if (message.includes('Multiple versions of Lit loaded') ||
         message.includes('Proposal expired') ||
+        message.includes('change-in-update') ||
+        message.includes('scheduled an update') ||
         message.includes('WalletConnect Core is already initialized')) {
       return;
     }

@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { Menu, Wallet, X, ExternalLink, PenTool, Users, Heart, Megaphone, Instagram, Linkedin, Youtube, Twitter, Github } from 'lucide-react';
+import { ExternalLink, PenTool, Users, Heart, Megaphone, Instagram, Linkedin, Youtube, Twitter, Github } from 'lucide-react';
 import { Button } from '@/app/components/ui/button';
-import { SideShelfMenu } from '@/app/components/SideShelfMenu';
 import { assetUrls } from '@/assets/asset-urls';
 
 // TikTok icon as custom SVG since lucide doesn't have it
@@ -36,8 +35,6 @@ export function Team({
   isWalletConnected = false,
   onWalletToggle 
 }: TeamProps) {
-  const [sheetOpen, setSheetOpen] = useState(false);
-
   const teamMembers = [
     {
       name: 'Stella Achenbach',
@@ -158,66 +155,6 @@ export function Team({
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="sticky top-0 z-[60] w-full border-b border-foreground bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-        <div className="px-8 md:px-16 max-w-6xl mx-auto">
-          <div className="flex h-20 items-center justify-between">
-            {/* Logo */}
-            <button
-              onClick={onClose}
-              className="flex items-center hover:opacity-80 transition-opacity"
-              aria-label="Return to home"
-            >
-              <img src={assetUrls.alanaLogo} alt="ALANAmagazine" className="h-[33.6px] w-auto" />
-            </button>
-
-            {/* Wallet and Menu Icons */}
-            <div className="flex items-center gap-4">
-              {/* Wallet icon */}
-              <button
-                onClick={onWalletToggle}
-                className={`transition-colors ${
-                  isWalletConnected
-                    ? 'text-accent hover:text-accent/80'
-                    : 'text-foreground hover:text-accent'
-                }`}
-                aria-label={isWalletConnected ? "Disconnect wallet" : "Connect wallet"}
-              >
-                <Wallet className="w-6 h-6" />
-              </button>
-              
-              {/* Burger menu button */}
-              <button
-                onClick={() => setSheetOpen(!sheetOpen)}
-                className="text-foreground hover:text-accent transition-colors"
-                aria-label="Toggle menu"
-              >
-                {sheetOpen ? (
-                  <X className="w-6 h-6" />
-                ) : (
-                  <Menu className="w-6 h-6" />
-                )}
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {/* Side Shelf Menu */}
-      <SideShelfMenu
-        isOpen={sheetOpen}
-        onClose={() => setSheetOpen(false)}
-        currentPage="team"
-        onPageChange={() => {}}
-        onHomeClick={onClose}
-        onShopArchiveClick={onShopArchiveClick}
-        onTeamClick={onTeamClick}
-        onAdvertiseClick={onAdvertiseClick}
-        onFeaturedCreatorsClick={onFeaturedCreatorsClick}
-        onShowTerms={onShowTerms}
-        onShowPrivacy={onShowPrivacy}
-      />
-
       {/* Main Content */}
       <main>
         {/* Hero Section */}

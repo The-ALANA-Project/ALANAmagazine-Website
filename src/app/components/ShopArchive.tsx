@@ -1,8 +1,6 @@
-import { useState } from 'react';
-import { Menu, Wallet, X, Linkedin, Twitter } from 'lucide-react';
+import { Linkedin, Twitter } from 'lucide-react';
 import { Button } from '@/app/components/ui/button';
 import { MagazineIssueGrid } from '@/app/components/MagazineIssueGrid';
-import { SideShelfMenu } from '@/app/components/SideShelfMenu';
 import { HelpSection } from '@/app/components/HelpSection';
 import { useAccount } from 'wagmi';
 import { useAppKit } from '@reown/appkit/react';
@@ -21,7 +19,6 @@ interface ShopArchiveProps {
 }
 
 export function ShopArchive({ onClose, onShopArchiveClick, onTeamClick, onGetInvolvedClick, onAdvertiseClick, onFeaturedCreatorsClick, onShowTerms, onShowPrivacy, onShowPressKit }: ShopArchiveProps) {
-  const [sheetOpen, setSheetOpen] = useState(false);
   const { address, isConnected } = useAccount();
   
   // Get AppKit modal (with safe fallback)
@@ -88,65 +85,6 @@ export function ShopArchive({ onClose, onShopArchiveClick, onTeamClick, onGetInv
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="sticky top-0 z-[60] w-full border-b border-foreground bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-        <div className="px-8 md:px-16 max-w-6xl mx-auto">
-          <div className="flex h-20 items-center justify-between">
-            {/* Logo */}
-            <button
-              onClick={onClose}
-              className="flex items-center hover:opacity-80 transition-opacity"
-              aria-label="Return to home"
-            >
-              <img src={assetUrls.alanaLogo} alt="ALANAmagazine" className="h-[33.6px] w-auto" />
-            </button>
-
-            {/* Wallet and Menu Icons */}
-            <div className="flex items-center gap-4">
-              {/* Wallet icon */}
-              <button
-                onClick={handleWalletToggle}
-                className={`transition-colors ${
-                  isConnected
-                    ? 'text-accent hover:text-accent/80'
-                    : 'text-foreground hover:text-accent'
-                }`}
-                aria-label={isConnected ? "Disconnect wallet" : "Connect wallet"}
-              >
-                <Wallet className="w-6 h-6" />
-              </button>
-              
-              {/* Burger menu button */}
-              <button
-                onClick={() => setSheetOpen(!sheetOpen)}
-                className="text-foreground hover:text-accent transition-colors"
-                aria-label="Toggle menu"
-              >
-                {sheetOpen ? (
-                  <X className="w-6 h-6" />
-                ) : (
-                  <Menu className="w-6 h-6" />
-                )}
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {/* Side Shelf Menu */}
-      <SideShelfMenu
-        isOpen={sheetOpen}
-        onClose={() => setSheetOpen(false)}
-        currentPage="shop"
-        onPageChange={() => {}}
-        onHomeClick={onClose}
-        onShopArchiveClick={onShopArchiveClick}
-        onTeamClick={onTeamClick}
-        onGetInvolvedClick={onGetInvolvedClick}
-        onAdvertiseClick={onAdvertiseClick}
-        onFeaturedCreatorsClick={onFeaturedCreatorsClick}
-      />
-
       {/* Main Content */}
       <main>
         {/* Hero Section */}

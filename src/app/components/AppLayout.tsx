@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router';
 import { useAccount, useDisconnect } from 'wagmi';
 import { useAppKit } from '@reown/appkit/react';
-import { Menu, X, Wallet } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { SideShelfMenu } from '@/app/components/SideShelfMenu';
 import { GoogleAnalytics } from '@/app/components/GoogleAnalytics';
 import { SEOHead } from '@/app/components/SEOHead';
@@ -71,7 +71,10 @@ export function AppLayout() {
       if (!walletList.includes(address)) {
         walletList.push(address);
         localStorage.setItem('alana-unique-wallets', JSON.stringify(walletList));
-        toast.success('Welcome! Your wallet is connected.');
+        // Defer toast to avoid update cycle conflicts with w3m components
+        setTimeout(() => {
+          toast.success('Welcome! Your wallet is connected.');
+        }, 100);
       }
     }
   }, [isConnected, address]);
@@ -136,35 +139,18 @@ export function AppLayout() {
               <img src={assetUrls.alanaLogo} alt="ALANA Magazine logo - Web3 digital culture magazine" className="h-[33.6px] w-auto transition-transform hover:scale-95 active:scale-90" />
             </button>
 
-            {/* Wallet and Menu Icons */}
-            <div className="flex items-center gap-4">
-              {/* Wallet icon - Quick access */}
-              <button
-                onClick={handleWalletToggle}
-                className={`transition-colors ${
-                  isConnected
-                    ? 'text-accent hover:text-accent/80'
-                    : 'text-foreground hover:text-accent'
-                }`}
-                aria-label={isConnected ? "Disconnect wallet" : "Connect wallet"}
-                title={isConnected && address ? `Connected: ${address.slice(0, 6)}...${address.slice(-4)}` : 'Connect Wallet'}
-              >
-                <Wallet className="w-6 h-6" />
-              </button>
-              
-              {/* Burger menu button - Always visible */}
-              <button
-                onClick={() => setSheetOpen(!sheetOpen)}
-                className="text-foreground hover:text-accent transition-colors"
-                aria-label="Toggle menu"
-              >
-                {sheetOpen ? (
-                  <X className="w-6 h-6" />
-                ) : (
-                  <Menu className="w-6 h-6" />
-                )}
-              </button>
-            </div>
+            {/* Menu Icon */}
+            <button
+              onClick={() => setSheetOpen(!sheetOpen)}
+              className="text-foreground hover:text-accent transition-colors"
+              aria-label="Toggle menu"
+            >
+              {sheetOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
+            </button>
           </div>
         </div>
       </header>

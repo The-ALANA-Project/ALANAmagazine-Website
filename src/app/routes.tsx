@@ -8,6 +8,7 @@ import { AdvertisePage } from '@/app/pages/AdvertisePage';
 import { PrivacyPolicyPage } from '@/app/pages/PrivacyPolicyPage';
 import { TermsOfServicePage } from '@/app/pages/TermsOfServicePage';
 import { PressKitPage } from '@/app/pages/PressKitPage';
+import { StorageSetupPage } from '@/app/pages/StorageSetupPage';
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +23,7 @@ export const router = createBrowserRouter([
       { path: 'privacy-policy', Component: PrivacyPolicyPage },
       { path: 'terms-of-service', Component: TermsOfServicePage },
       { path: 'press-kit', Component: PressKitPage },
+      { path: 'setup-storage', Component: StorageSetupPage },
       { path: '*', Component: HomePage }, // Fallback to home for unknown routes
     ],
   },

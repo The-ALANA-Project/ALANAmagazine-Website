@@ -7,9 +7,6 @@ export function PressKitPage() {
   return (
     <PressKit 
       onClose={() => navigate('/')}
-      onShopArchiveClick={() => navigate('/shop-archive')}
-      onTeamClick={() => navigate('/contributors')}
-      onAdvertiseClick={() => navigate('/advertise')}
       onShowTerms={() => navigate('/terms-of-service')}
       onShowPrivacy={() => navigate('/privacy-policy')}
     />

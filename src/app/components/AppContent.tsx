@@ -95,7 +95,10 @@ export function AppContent() {
       if (!walletList.includes(address)) {
         walletList.push(address);
         localStorage.setItem('alana-unique-wallets', JSON.stringify(walletList));
-        toast.success('Welcome! Your wallet is connected.');
+        // Defer toast to avoid update cycle conflicts with w3m components
+        setTimeout(() => {
+          toast.success('Welcome! Your wallet is connected.');
+        }, 100);
       }
     }
   }, [isConnected, address]);

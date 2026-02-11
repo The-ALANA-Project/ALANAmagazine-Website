@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, Wallet, Linkedin, Twitter } from 'lucide-react';
+import { Linkedin, Twitter } from 'lucide-react';
 import { Button } from './ui/button';
-import { SideShelfMenu } from './SideShelfMenu';
 import { assetUrls } from '@/assets/asset-urls';
 
 interface FeaturedCreatorsProps {
@@ -29,7 +28,6 @@ export function FeaturedCreators({
   isWalletConnected = false,
   onWalletToggle,
 }: FeaturedCreatorsProps) {
-  const [sheetOpen, setSheetOpen] = useState(false);
   const [currentHeroSlide, setCurrentHeroSlide] = useState(0);
   const [shuffledCreators, setShuffledCreators] = useState<typeof featuredCreators>([]);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
@@ -201,76 +199,6 @@ export function FeaturedCreators({
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="sticky top-0 z-[60] w-full border-b border-foreground bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-        <div className="px-8 md:px-16 max-w-6xl mx-auto">
-          <div className="flex h-20 items-center justify-between">
-            {/* Logo */}
-            <button
-              onClick={onClose}
-              className="flex items-center hover:opacity-80 transition-opacity"
-              aria-label="Return to home"
-            >
-              <img src={assetUrls.alanaLogo} alt="ALANAmagazine" className="h-[33.6px] w-auto" />
-            </button>
-
-            {/* Wallet and Menu Icons */}
-            <div className="flex items-center gap-4">
-              {/* Wallet icon */}
-              <button
-                onClick={onWalletToggle}
-                className={`transition-colors ${
-                  isWalletConnected
-                    ? 'text-accent hover:text-accent/80'
-                    : 'text-foreground hover:text-accent'
-                }`}
-                aria-label={isWalletConnected ? "Disconnect wallet" : "Connect wallet"}
-              >
-                <Wallet className="w-6 h-6" />
-              </button>
-              
-              {/* Burger menu button */}
-              <button
-                onClick={() => setSheetOpen(!sheetOpen)}
-                className="text-foreground hover:text-accent transition-colors"
-                aria-label="Toggle menu"
-              >
-                {sheetOpen ? (
-                  <X className="w-6 h-6" />
-                ) : (
-                  <Menu className="w-6 h-6" />
-                )}
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {/* Side Shelf Menu */}
-      <SideShelfMenu
-        isOpen={sheetOpen}
-        onClose={() => setSheetOpen(false)}
-        currentPage="creators"
-        onPageChange={() => {}}
-        onHomeClick={onClose}
-        onShopArchiveClick={() => {
-          setSheetOpen(false);
-          if (onShopArchiveClick) onShopArchiveClick();
-        }}
-        onTeamClick={() => {
-          setSheetOpen(false);
-          if (onTeamClick) onTeamClick();
-        }}
-        onAdvertiseClick={() => {
-          setSheetOpen(false);
-          if (onAdvertiseClick) onAdvertiseClick();
-        }}
-        onFeaturedCreatorsClick={() => {
-          setSheetOpen(false);
-          if (onFeaturedCreatorsClick) onFeaturedCreatorsClick();
-        }}
-      />
-
       {/* Main Content */}
       <main className="">
         {/* Hero Slideshow Section */}

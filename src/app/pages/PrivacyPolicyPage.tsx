@@ -8,9 +8,6 @@ export function PrivacyPolicyPage() {
     <PrivacyPolicy 
       onClose={() => navigate('/')}
       onShowTerms={() => navigate('/terms-of-service')}
-      onShopArchiveClick={() => navigate('/shop-archive')}
-      onTeamClick={() => navigate('/contributors')}
-      onAdvertiseClick={() => navigate('/advertise')}
       onShowPressKit={() => navigate('/press-kit')}
     />
   );
