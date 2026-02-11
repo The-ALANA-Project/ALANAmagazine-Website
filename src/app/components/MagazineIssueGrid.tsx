@@ -2,7 +2,7 @@ import { Calendar, Download, Lock, Loader2 } from 'lucide-react';
 import { Button } from '@/app/components/ui/button';
 import { useState, useEffect } from 'react';
 import { useAccount } from 'wagmi';
-import { useAppKit } from '@reown/appkit/react';
+import { modal } from '@/config/appkit-init';
 import { toast } from 'sonner';
 import { projectId, publicAnonKey } from '/utils/supabase/info';
 
@@ -47,8 +47,7 @@ function MagazineIssueCard({ issue, onNavigateToSubscribe, onNavigateToSampleRea
   const [isVerifying, setIsVerifying] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
   const { address, isConnected } = useAccount();
-  const { open: openWalletModal } = useAppKit();
-
+  
   // Check NFT ownership when wallet connects (only for EARTH Edition)
   useEffect(() => {
     if (isConnected && address && issue.title === 'EARTH Edition') {
@@ -104,9 +103,9 @@ function MagazineIssueCard({ issue, onNavigateToSubscribe, onNavigateToSampleRea
   const handleDownloadClick = async () => {
     if (!isConnected || !address) {
       // Open wallet connection modal instead of showing error
-      if (openWalletModal) {
+      if (modal) {
         try {
-          await openWalletModal();
+          await modal.open();
         } catch (error) {
           console.error('Error opening wallet modal:', error);
         }

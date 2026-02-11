@@ -243,7 +243,7 @@ export function AdvertiseWithUs({
             <div className="mb-12">
               <h2 className="mb-4">Advertising Packages</h2>
               <p className="text-[18px] md:text-[20px] text-muted-foreground max-w-3xl">
-                Choose the package that best fits your brand's, project's or community's needs. All tiers are NFTs and secured by blockchain technology. Please ensure you have a crypto wallet ready for purchase.
+                Choose the package that best fits your brand's, project's or community's needs. All tiers are NFTs and secured by blockchain technology. Please ensure you have a crypto wallet ready for purchase. Ads with NSFW content won't be considered. 
               </p>
             </div>
 

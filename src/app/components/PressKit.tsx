@@ -1,36 +1,7 @@
-import { Menu, Wallet, Download } from 'lucide-react';
 import { Button } from '@/app/components/ui/button';
-import { SideShelfMenu } from '@/app/components/SideShelfMenu';
-import { useState } from 'react';
-import alanaLogoBlackSvg from '@/imports/alana-logo-black.svg?url';
-import alanaLogoWhiteSvg from '@/imports/alana-logo-white.svg?url';
 import { assetUrls } from '@/assets/asset-urls';
 
-interface PressKitProps {
-  onClose: () => void;
-  onShopArchiveClick: () => void;
-  onTeamClick: () => void;
-  onGetInvolvedClick: () => void;
-  onAdvertiseClick: () => void;
-  onShowTerms: () => void;
-  onShowPrivacy: () => void;
-}
-
-export function PressKit({
-  onClose,
-  onShopArchiveClick,
-  onTeamClick,
-  onGetInvolvedClick,
-  onAdvertiseClick,
-  onShowTerms,
-  onShowPrivacy,
-}: PressKitProps) {
-  const [sheetOpen, setSheetOpen] = useState(false);
-  const [isWalletConnected, setIsWalletConnected] = useState(false);
-
-  const handleWalletToggle = () => {
-    setIsWalletConnected(!isWalletConnected);
-  };
+export function PressKit() {
 
   const handleDownloadPngLight = () => {
     const link = document.createElement('a');
@@ -118,80 +89,8 @@ export function PressKit({
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="sticky top-0 z-[60] w-full border-b border-foreground bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-        <div className="px-8 md:px-16 max-w-6xl mx-auto">
-          <div className="flex h-20 items-center justify-between">
-            {/* Logo */}
-            <button 
-              onClick={onClose}
-              className="flex items-center hover:opacity-80 transition-opacity"
-              aria-label="Return to home"
-            >
-              <img src={assetUrls.alanaLogo} alt="ALANAmagazine" className="h-[33.6px] w-auto" />
-            </button>
-
-            {/* Wallet and Menu Icons */}
-            <div className="flex items-center gap-4">
-              {/* Wallet icon */}
-              <button
-                onClick={handleWalletToggle}
-                className={`transition-colors ${
-                  isWalletConnected
-                    ? 'text-accent hover:text-accent/80'
-                    : 'text-foreground hover:text-accent'
-                }`}
-                aria-label={isWalletConnected ? "Disconnect wallet" : "Connect wallet"}
-              >
-                <Wallet className="w-6 h-6" />
-              </button>
-              
-              {/* Burger menu button */}
-              <button
-                onClick={() => setSheetOpen(!sheetOpen)}
-                className="text-foreground hover:text-accent transition-colors"
-                aria-label="Toggle menu"
-              >
-                <Menu className="w-6 h-6" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {/* Side Shelf Menu */}
-      <SideShelfMenu
-        isOpen={sheetOpen}
-        onClose={() => setSheetOpen(false)}
-        currentPage="press-kit"
-        onPageChange={() => {}}
-        isWalletConnected={isWalletConnected}
-        onWalletToggle={handleWalletToggle}
-        onHomeClick={() => {
-          setSheetOpen(false);
-          onClose();
-        }}
-        onShopArchiveClick={() => {
-          setSheetOpen(false);
-          onShopArchiveClick();
-        }}
-        onTeamClick={() => {
-          setSheetOpen(false);
-          onTeamClick();
-        }}
-        onGetInvolvedClick={() => {
-          setSheetOpen(false);
-          onGetInvolvedClick();
-        }}
-        onAdvertiseClick={() => {
-          setSheetOpen(false);
-          onAdvertiseClick();
-        }}
-      />
-
-      {/* Main Content */}
-      <main className="max-w-6xl mx-auto px-8 md:px-16 py-16">
+    <>
+      <div className="max-w-6xl mx-auto px-8 md:px-16 py-16">
         {/* Header */}
         <div className="mb-12">
           <h1 className="mb-4">Press Kit</h1>
@@ -275,7 +174,7 @@ export function PressKit({
             {/* PNG - Light Background */}
             <div className="border border-foreground p-8 rounded-none rounded-br-[25px]">
               <div className="bg-[#E8E8E8] flex items-center justify-center h-32 mb-4 rounded-none">
-                <img src={alanaLogoLightBg} alt="ALANA Logo Light Background" className="w-full h-auto border border-foreground" />
+                <img src={assetUrls.alanaLogoLightBg} alt="ALANA Logo Light Background" className="w-full h-auto border border-foreground" />
               </div>
               <h4 className="text-[20px] font-medium mb-2">PNG - Light Background</h4>
               <p className="text-sm text-muted-foreground mb-4">Black logo on light background</p>
@@ -287,7 +186,7 @@ export function PressKit({
             {/* PNG - Dark Background */}
             <div className="border border-foreground p-8 rounded-none rounded-br-[25px]">
               <div className="bg-[#363636] flex items-center justify-center h-32 mb-4 rounded-none">
-                <img src={alanaLogoDarkBg} alt="ALANA Logo Dark Background" className="w-full h-auto" />
+                <img src={assetUrls.alanaLogoDarkBg} alt="ALANA Logo Dark Background" className="w-full h-auto" />
               </div>
               <h4 className="text-[20px] font-medium mb-2">PNG - Dark Background</h4>
               <p className="text-sm text-muted-foreground mb-4">White logo on dark background</p>
@@ -433,7 +332,7 @@ export function PressKit({
             ALANAmagazine's visual identity is defined by rounded bottom‑right corners (25px radius) on key interface elements and graphic containers, paired with fine 1px lines for subtle structure and emphasis. To enhance readability and depth, imagery often features light 30% color overlays and/or delicate grain textures.
           </p>
         </section>
-      </main>
+      </div>
 
       {/* Media Contact */}
       <section className="w-full bg-accent py-12">
@@ -456,23 +355,17 @@ export function PressKit({
         <div className="px-8 md:px-16 py-8 max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex w-full md:w-auto justify-between gap-4 md:gap-6">
-            <button 
-              onClick={onShowTerms}
-              className="text-[16px] pb-2 text-muted-foreground hover:text-accent transition-colors"
-            >
+            <span className="text-[16px] pb-2 text-muted-foreground">
               Terms of Service
-            </button>
-            <button
-              onClick={onShowPrivacy}
-              className="text-[16px] pb-2 text-muted-foreground hover:text-accent transition-colors"
-            >
+            </span>
+            <span className="text-[16px] pb-2 text-muted-foreground">
               Privacy Policy
-            </button>
+            </span>
             <button
-              onClick={() => window.location.reload()}
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               className="text-[16px] pb-2 text-muted-foreground hover:text-accent transition-colors"
             >
-              Press Kit
+              Back to Top
             </button>
           </div>
           <p className="text-[14px] text-muted-foreground font-mono pt-[0px] pr-[0px] pb-[8px] pl-[0px]">
@@ -481,6 +374,6 @@ export function PressKit({
           </div>
         </div>
       </footer>
-    </div>
+    </>
   );
 }

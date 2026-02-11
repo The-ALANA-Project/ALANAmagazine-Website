@@ -29,20 +29,23 @@ export const wagmiAdapter = new WagmiAdapter({
   ssr: false
 });
 
-// Global singleton flags
+// Global singleton to prevent double initialization
 declare global {
   interface Window {
-    __ALANA_APPKIT_INITIALIZED__?: boolean;
-    __ALANA_APPKIT_INSTANCE__?: any;
+    __ALANA_APPKIT_MODAL__?: any;
   }
 }
 
-// Initialize AppKit immediately (module-level)
-if (typeof window !== 'undefined' && !window.__ALANA_APPKIT_INITIALIZED__) {
-  window.__ALANA_APPKIT_INITIALIZED__ = true;
-  
-  try {
-    const appKitInstance = createAppKit({
+// Initialize AppKit only once using singleton pattern
+let modalInstance: any = null;
+
+if (typeof window !== 'undefined') {
+  // Check if modal already exists in window
+  if (window.__ALANA_APPKIT_MODAL__) {
+    modalInstance = window.__ALANA_APPKIT_MODAL__;
+  } else {
+    // Create new modal instance
+    modalInstance = createAppKit({
       adapters: [wagmiAdapter],
       networks,
       projectId,
@@ -60,21 +63,22 @@ if (typeof window !== 'undefined' && !window.__ALANA_APPKIT_INITIALIZED__) {
       enableAnalytics: false
     });
     
-    window.__ALANA_APPKIT_INSTANCE__ = appKitInstance;
-  } catch (error) {
-    console.error('Failed to initialize AppKit:', error);
-    window.__ALANA_APPKIT_INITIALIZED__ = false;
+    // Store in window to prevent re-initialization
+    window.__ALANA_APPKIT_MODAL__ = modalInstance;
   }
 }
 
-// Suppress Lit warnings
+export const modal = modalInstance;
+
+// Suppress Lit warnings and WalletConnect duplicate init warnings
 if (typeof window !== 'undefined' && import.meta.env.DEV) {
   const originalWarn = console.warn;
   console.warn = (...args: any[]) => {
     const message = args[0]?.toString() || '';
     if (message.includes('Lit is in dev mode') || 
         message.includes('w3m-router-container') ||
-        message.includes('Multiple versions of Lit loaded')) {
+        message.includes('Multiple versions of Lit loaded') ||
+        message.includes('WalletConnect Core is already initialized')) {
       return;
     }
     originalWarn.apply(console, args);
@@ -84,7 +88,8 @@ if (typeof window !== 'undefined' && import.meta.env.DEV) {
   console.error = (...args: any[]) => {
     const message = args[0]?.toString() || '';
     if (message.includes('Multiple versions of Lit loaded') ||
-        message.includes('Proposal expired')) {
+        message.includes('Proposal expired') ||
+        message.includes('WalletConnect Core is already initialized')) {
       return;
     }
     originalError.apply(console, args);
