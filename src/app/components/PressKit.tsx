@@ -1,7 +1,27 @@
+import { useState } from 'react';
+import { Menu, X } from 'lucide-react';
 import { Button } from '@/app/components/ui/button';
+import { SideShelfMenu } from '@/app/components/SideShelfMenu';
 import { assetUrls } from '@/assets/asset-urls';
 
-export function PressKit() {
+interface PressKitProps {
+  onClose: () => void;
+  onShopArchiveClick?: () => void;
+  onTeamClick?: () => void;
+  onAdvertiseClick?: () => void;
+  onShowTerms?: () => void;
+  onShowPrivacy?: () => void;
+}
+
+export function PressKit({ 
+  onClose, 
+  onShopArchiveClick, 
+  onTeamClick, 
+  onAdvertiseClick,
+  onShowTerms, 
+  onShowPrivacy 
+}: PressKitProps) {
+  const [sheetOpen, setSheetOpen] = useState(false);
 
   const handleDownloadPngLight = () => {
     const link = document.createElement('a');
@@ -89,7 +109,67 @@ export function PressKit() {
   };
 
   return (
-    <>
+    <div className="min-h-screen bg-background">
+      {/* Header */}
+      <header className="sticky top-0 z-[60] w-full border-b border-foreground bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
+        <div className="px-8 md:px-16 max-w-6xl mx-auto">
+          <div className="flex h-20 items-center justify-between">
+            {/* Logo */}
+            <button 
+              onClick={onClose}
+              className="flex items-center hover:opacity-80 transition-opacity"
+              aria-label="Return to home"
+            >
+              <img src={assetUrls.alanaLogo} alt="ALANA Magazine logo" className="h-[33.6px] w-auto transition-transform hover:scale-95 active:scale-90" />
+            </button>
+
+            {/* Menu Icons */}
+            <div className="flex items-center gap-4">
+              {/* Burger menu button */}
+              <button
+                onClick={() => setSheetOpen(!sheetOpen)}
+                className="text-foreground hover:text-accent transition-colors"
+                aria-label="Toggle menu"
+              >
+                {sheetOpen ? (
+                  <X className="w-6 h-6" />
+                ) : (
+                  <Menu className="w-6 h-6" />
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Side Shelf Menu */}
+      <SideShelfMenu
+        isOpen={sheetOpen}
+        onClose={() => setSheetOpen(false)}
+        currentPage="press-kit"
+        onPageChange={() => {}}
+        onHomeClick={() => {
+          setSheetOpen(false);
+          onClose();
+        }}
+        onShopArchiveClick={() => {
+          setSheetOpen(false);
+          onShopArchiveClick?.();
+        }}
+        onTeamClick={() => {
+          setSheetOpen(false);
+          onTeamClick?.();
+        }}
+        onAdvertiseClick={() => {
+          setSheetOpen(false);
+          onAdvertiseClick?.();
+        }}
+        onFeaturedCreatorsClick={() => {
+          setSheetOpen(false);
+        }}
+      />
+
+      {/* Main Content */}
       <div className="max-w-6xl mx-auto px-8 md:px-16 py-16">
         {/* Header */}
         <div className="mb-12">
@@ -351,29 +431,67 @@ export function PressKit() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-foreground">
-        <div className="px-8 md:px-16 py-8 max-w-6xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="flex w-full md:w-auto justify-between gap-4 md:gap-6">
-            <span className="text-[16px] pb-2 text-muted-foreground">
-              Terms of Service
-            </span>
-            <span className="text-[16px] pb-2 text-muted-foreground">
-              Privacy Policy
-            </span>
-            <button
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="text-[16px] pb-2 text-muted-foreground hover:text-accent transition-colors"
-            >
-              Back to Top
-            </button>
+      <footer className="border-t border-foreground bg-background mt-0">
+        <div className="px-8 md:px-16 py-8 md:py-12 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Left Column - About */}
+            <div>
+              <h3 className="text-lg font-medium mb-4">ALANAmagazine™</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Where technology, culture, and lifestyle collide with a particular emphasis on the emergence of Web 3.0 innovation.
+              </p>
+            </div>
+
+            {/* Middle Column - Quick Links */}
+            <div>
+              <h3 className="text-lg font-medium mb-4">Quick Links</h3>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <button onClick={onClose} className="text-muted-foreground hover:text-accent transition-colors">
+                    Home
+                  </button>
+                </li>
+                <li>
+                  <button onClick={onShopArchiveClick} className="text-muted-foreground hover:text-accent transition-colors">
+                    Shop & Archive
+                  </button>
+                </li>
+                <li>
+                  <button onClick={onTeamClick} className="text-muted-foreground hover:text-accent transition-colors">
+                    Team
+                  </button>
+                </li>
+                <li>
+                  <button onClick={onAdvertiseClick} className="text-muted-foreground hover:text-accent transition-colors">
+                    Advertise With Us
+                  </button>
+                </li>
+              </ul>
+            </div>
+
+            {/* Right Column - Legal */}
+            <div>
+              <h3 className="text-lg font-medium mb-4">Legal</h3>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <button onClick={onShowTerms} className="text-muted-foreground hover:text-accent transition-colors">
+                    Terms of Service
+                  </button>
+                </li>
+                <li>
+                  <button onClick={onShowPrivacy} className="text-muted-foreground hover:text-accent transition-colors">
+                    Privacy Policy
+                  </button>
+                </li>
+              </ul>
+            </div>
           </div>
-          <p className="text-[14px] text-muted-foreground font-mono pt-[0px] pr-[0px] pb-[8px] pl-[0px]">
-            © 2026 The ALANA Project
-          </p>
+
+          <div className="mt-8 pt-8 border-t border-foreground/20 text-center text-sm text-muted-foreground">
+            <p>© 2026 The ALANA Project. All rights reserved.</p>
           </div>
         </div>
       </footer>
-    </>
+    </div>
   );
 }
