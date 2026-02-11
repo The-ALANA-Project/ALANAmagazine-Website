@@ -148,36 +148,69 @@ app.post('/make-server-2e3ce182/verify-nft-download', async (c) => {
       }, 403);
     }
 
-    console.log('[NFT Download] NFT ownership verified! Generating download URL...');
+    console.log('[NFT Download] NFT ownership verified! Generating Pinata signed URL...');
 
-    // Initialize Supabase client
-    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
-    const supabase = createClient(supabaseUrl, supabaseServiceKey);
-
-    // Create signed URL for the PDF (expires in 1 hour)
-    const { data: signedUrlData, error: signedUrlError } = await supabase
-      .storage
-      .from('make-2e3ce182-magazine-pdfs')
-      .createSignedUrl('earth-edition-full.pdf', 3600); // 1 hour expiry
-
-    if (signedUrlError || !signedUrlData) {
-      console.error('[NFT Download] Error creating signed URL:', signedUrlError);
+    // Get Pinata credentials from environment
+    const pinataJWT = Deno.env.get('PINATA_JWT');
+    const pinataGateway = 'pink-quick-lizard-297.mypinata.cloud';
+    const pdfCID = 'bafybeibzbr6ob7q7ymhsdivf66hrsgdy4kzghhzq6kht2gkyj2jd7o72iu';
+    
+    if (!pinataJWT) {
+      console.error('[NFT Download] PINATA_JWT not configured');
       return c.json({
         success: false,
-        error: 'Failed to generate download link'
+        error: 'Download service not configured'
       }, 500);
     }
 
-    console.log('[NFT Download] Signed URL generated successfully');
+    // Create signed URL using Pinata API
+    const expirySeconds = 3600; // 1 hour
+    const expiryDate = new Date(Date.now() + expirySeconds * 1000);
+    
+    try {
+      // Call Pinata's signed URL API
+      const pinataResponse = await fetch('https://api.pinata.cloud/v3/files/sign', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${pinataJWT}`
+        },
+        body: JSON.stringify({
+          url: `https://${pinataGateway}/ipfs/${pdfCID}`,
+          expires: Math.floor(expirySeconds),
+          date: Math.floor(Date.now() / 1000),
+          method: 'GET'
+        })
+      });
 
-    return c.json({
-      success: true,
-      verified: true,
-      downloadUrl: signedUrlData.signedUrl,
-      expiresIn: 3600,
-      message: 'Access granted! Download link expires in 1 hour.'
-    });
+      if (!pinataResponse.ok) {
+        const errorText = await pinataResponse.text();
+        console.error('[NFT Download] Pinata API error:', errorText);
+        return c.json({
+          success: false,
+          error: 'Failed to generate download link'
+        }, 500);
+      }
+
+      const pinataData = await pinataResponse.json();
+      console.log('[NFT Download] Pinata signed URL generated successfully');
+
+      return c.json({
+        success: true,
+        verified: true,
+        downloadUrl: pinataData.data,
+        expiresIn: expirySeconds,
+        message: 'Access granted! Download link expires in 1 hour.'
+      });
+
+    } catch (pinataError) {
+      console.error('[NFT Download] Pinata API call failed:', pinataError);
+      return c.json({
+        success: false,
+        error: 'Failed to generate download link',
+        details: pinataError.message
+      }, 500);
+    }
 
   } catch (error) {
     console.error('[NFT Download Error]', error);
