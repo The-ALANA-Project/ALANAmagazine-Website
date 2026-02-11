@@ -71,7 +71,7 @@ export async function uploadPDFFromIPFS() {
     console.log('[PDF Upload] Fetching PDF from IPFS...');
     
     // Fetch the PDF from IPFS
-    const ipfsUrl = 'https://pink-quick-lizard-297.mypinata.cloud/ipfs/bafybeibzbr6ob7q7ymhsdivf66hrsgdy4kzghhzq6kht2gkyj2jd7o72iu';
+    const ipfsUrl = 'https://pink-quick-lizard-297.mypinata.cloud/ipfs/bafybeibzbr6ob7q7ymhsdivf66hrsgdy4kzghhzq6kht2gkyj2jd7o72iu/ALANAmagazine_EARTH Pages-Digital.pdf';
     const response = await fetch(ipfsUrl);
     
     if (!response.ok) {
