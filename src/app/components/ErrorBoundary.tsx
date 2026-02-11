@@ -16,10 +16,19 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
   }
 
   static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+    // Don't show error boundary for WalletConnect proposal expiry
+    if (error?.message?.includes('Proposal expired')) {
+      return { hasError: false, error: null };
+    }
     return { hasError: true, error };
   }
 
   componentDidCatch(error: Error, errorInfo: any) {
+    // Ignore WalletConnect proposal expiry errors
+    if (error?.message?.includes('Proposal expired')) {
+      return;
+    }
+    
     // Log error to console only in development
     if (import.meta.env.DEV) {
       console.error('ErrorBoundary caught an error:', error, errorInfo);

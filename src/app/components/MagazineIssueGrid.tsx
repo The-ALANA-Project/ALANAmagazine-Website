@@ -121,7 +121,7 @@ function MagazineIssueCard({ issue, onNavigateToSubscribe, onNavigateToSampleRea
 
     if (ownsNFT === false) {
       toast.error('NFT Required', {
-        description: 'You need to own an EARTH Edition NFT to download this magazine. Visit the Shop & Archive page to purchase.'
+        description: 'You need to own an EARTH Edition NFT to download this magazine. But the purchase period for that magazine is sadly over.'
       });
       return;
     }

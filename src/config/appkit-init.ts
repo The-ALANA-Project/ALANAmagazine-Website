@@ -83,7 +83,8 @@ if (typeof window !== 'undefined' && import.meta.env.DEV) {
   const originalError = console.error;
   console.error = (...args: any[]) => {
     const message = args[0]?.toString() || '';
-    if (message.includes('Multiple versions of Lit loaded')) {
+    if (message.includes('Multiple versions of Lit loaded') ||
+        message.includes('Proposal expired')) {
       return;
     }
     originalError.apply(console, args);
