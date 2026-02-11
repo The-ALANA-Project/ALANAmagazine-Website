@@ -518,3 +518,96 @@ h2 + * > p:first-child {
 .animate-scroll-left:hover {
   animation-play-state: paused;
 }
+
+/* ==================================================================================
+   SONNER TOAST OVERRIDES - ALANA Brand Colors
+   Force dark text on light background for maximum readability
+   ================================================================================== */
+
+/* Toast container base styles */
+[data-sonner-toast] {
+  background: #F3F3F3 !important;
+  color: #262424 !important;
+  border: 2px solid #DCC2FE !important;
+  box-shadow: 0 4px 12px rgba(38, 36, 36, 0.15) !important;
+}
+
+/* Toast title */
+[data-sonner-toast] [data-title] {
+  color: #262424 !important;
+  font-weight: 500 !important;
+  font-family: var(--font-sans) !important;
+}
+
+/* Toast description */
+[data-sonner-toast] [data-description] {
+  color: #262424 !important;
+  opacity: 1 !important;
+  font-family: var(--font-sans) !important;
+}
+
+/* Toast icon */
+[data-sonner-toast] [data-icon] {
+  color: #262424 !important;
+}
+
+/* Error toast */
+[data-sonner-toast][data-type="error"] {
+  border-color: #d4183d !important;
+}
+
+/* Success toast */
+[data-sonner-toast][data-type="success"] {
+  border-color: #DCC2FE !important;
+}
+
+/* Warning toast */
+[data-sonner-toast][data-type="warning"] {
+  border-color: #DCC2FE !important;
+}
+
+/* Info toast */
+[data-sonner-toast][data-type="info"] {
+  border-color: #DCC2FE !important;
+}
+
+/* Loading toast */
+[data-sonner-toast][data-type="loading"] {
+  border-color: #DCC2FE !important;
+}
+
+/* Close button */
+[data-sonner-toast] [data-close-button] {
+  background: transparent !important;
+  color: #262424 !important;
+  border: 1px solid #262424 !important;
+}
+
+[data-sonner-toast] [data-close-button]:hover {
+  background: #262424 !important;
+  color: #F3F3F3 !important;
+}
+
+/* Action button */
+[data-sonner-toast] [data-button] {
+  background: #262424 !important;
+  color: #F3F3F3 !important;
+  font-weight: 500 !important;
+}
+
+[data-sonner-toast] [data-button]:hover {
+  background: #DCC2FE !important;
+  color: #262424 !important;
+}
+
+/* Cancel button */
+[data-sonner-toast] [data-cancel] {
+  background: #D9D9D9 !important;
+  color: #262424 !important;
+  font-weight: 500 !important;
+}
+
+[data-sonner-toast] [data-cancel]:hover {
+  background: #262424 !important;
+  color: #F3F3F3 !important;
+}

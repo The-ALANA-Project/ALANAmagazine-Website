@@ -12,41 +12,24 @@ const Toaster = ({ ...props }: ToasterProps) => {
       className="toaster group"
       toastOptions={{
         classNames: {
-          toast: 'group toast group-[.toaster]:bg-[#F3F3F3] group-[.toaster]:text-[#262424] group-[.toaster]:border-[#DCC2FE] group-[.toaster]:shadow-lg',
-          title: 'group-[.toast]:text-[#262424] group-[.toast]:font-medium group-[.toast]:font-sans',
-          description: 'group-[.toast]:text-[#262424] group-[.toast]:opacity-90 group-[.toast]:font-sans',
+          toast: 'group toast group-[.toaster]:bg-[#F3F3F3] group-[.toaster]:text-[#262424] group-[.toaster]:border-[#DCC2FE] group-[.toaster]:shadow-lg group-[.toaster]:border-2',
+          title: 'group-[.toast]:text-[#262424] group-[.toast]:font-medium group-[.toast]:font-sans !text-[#262424]',
+          description: 'group-[.toast]:text-[#262424] group-[.toast]:opacity-100 group-[.toast]:font-sans !text-[#262424]',
           actionButton: 'group-[.toast]:bg-[#262424] group-[.toast]:text-[#F3F3F3] group-[.toast]:font-medium',
           cancelButton: 'group-[.toast]:bg-[#D9D9D9] group-[.toast]:text-[#262424] group-[.toast]:font-medium',
-          error: 'group-[.toast]:bg-[#F3F3F3] group-[.toast]:text-[#262424] group-[.toast]:border-[#d4183d]',
-          success: 'group-[.toast]:bg-[#F3F3F3] group-[.toast]:text-[#262424] group-[.toast]:border-[#DCC2FE]',
-          warning: 'group-[.toast]:bg-[#F3F3F3] group-[.toast]:text-[#262424] group-[.toast]:border-[#DCC2FE]',
-          info: 'group-[.toast]:bg-[#F3F3F3] group-[.toast]:text-[#262424] group-[.toast]:border-[#DCC2FE]',
-          loading: 'group-[.toast]:bg-[#F3F3F3] group-[.toast]:text-[#262424] group-[.toast]:border-[#DCC2FE]',
-          icon: 'group-[.toast]:text-[#262424]',
+          error: 'group-[.toast]:bg-[#F3F3F3] group-[.toast]:text-[#262424] group-[.toast]:border-[#d4183d] group-[.toast]:border-2',
+          success: 'group-[.toast]:bg-[#F3F3F3] group-[.toast]:text-[#262424] group-[.toast]:border-[#DCC2FE] group-[.toast]:border-2',
+          warning: 'group-[.toast]:bg-[#F3F3F3] group-[.toast]:text-[#262424] group-[.toast]:border-[#DCC2FE] group-[.toast]:border-2',
+          info: 'group-[.toast]:bg-[#F3F3F3] group-[.toast]:text-[#262424] group-[.toast]:border-[#DCC2FE] group-[.toast]:border-2',
+          loading: 'group-[.toast]:bg-[#F3F3F3] group-[.toast]:text-[#262424] group-[.toast]:border-[#DCC2FE] group-[.toast]:border-2',
+          icon: 'group-[.toast]:text-[#262424] !text-[#262424]',
+        },
+        style: {
+          background: '#F3F3F3',
+          color: '#262424',
+          border: '2px solid #DCC2FE',
         },
       }}
-      style={
-        {
-          "--normal-bg": "#F3F3F3",
-          "--normal-text": "#262424",
-          "--normal-border": "#DCC2FE",
-          "--success-bg": "#F3F3F3",
-          "--success-text": "#262424",
-          "--success-border": "#DCC2FE",
-          "--error-bg": "#F3F3F3",
-          "--error-text": "#262424",
-          "--error-border": "#d4183d",
-          "--info-bg": "#F3F3F3",
-          "--info-text": "#262424",
-          "--info-border": "#DCC2FE",
-          "--warning-bg": "#F3F3F3",
-          "--warning-text": "#262424",
-          "--warning-border": "#DCC2FE",
-          "--loading-bg": "#F3F3F3",
-          "--loading-text": "#262424",
-          "--loading-border": "#DCC2FE",
-        } as React.CSSProperties
-      }
       {...props}
     />
   );
