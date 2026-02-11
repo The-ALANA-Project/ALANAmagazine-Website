@@ -7,9 +7,20 @@ import { assetUrls } from '@/assets/asset-urls';
 interface PrivacyPolicyProps {
   onClose: () => void;
   onShowTerms: () => void;
+  onShopArchiveClick?: () => void;
+  onTeamClick?: () => void;
+  onAdvertiseClick?: () => void;
+  onShowPressKit?: () => void;
 }
 
-export function PrivacyPolicy({ onClose, onShowTerms }: PrivacyPolicyProps) {
+export function PrivacyPolicy({ 
+  onClose, 
+  onShowTerms,
+  onShopArchiveClick,
+  onTeamClick,
+  onAdvertiseClick,
+  onShowPressKit
+}: PrivacyPolicyProps) {
   const [sheetOpen, setSheetOpen] = useState(false);
   const [isWalletConnected, setIsWalletConnected] = useState(false);
 
@@ -81,6 +92,25 @@ export function PrivacyPolicy({ onClose, onShowTerms }: PrivacyPolicyProps) {
         onClose={() => setSheetOpen(false)}
         currentPage="privacy"
         onPageChange={handlePageChange}
+        onHomeClick={() => {
+          setSheetOpen(false);
+          onClose();
+        }}
+        onShopArchiveClick={() => {
+          setSheetOpen(false);
+          onShopArchiveClick?.();
+        }}
+        onTeamClick={() => {
+          setSheetOpen(false);
+          onTeamClick?.();
+        }}
+        onAdvertiseClick={() => {
+          setSheetOpen(false);
+          onAdvertiseClick?.();
+        }}
+        onFeaturedCreatorsClick={() => {
+          setSheetOpen(false);
+        }}
         isWalletConnected={isWalletConnected}
         onWalletToggle={handleWalletToggle}
       />
@@ -194,6 +224,12 @@ export function PrivacyPolicy({ onClose, onShowTerms }: PrivacyPolicyProps) {
                 className="text-[16px] pb-2 text-muted-foreground hover:text-accent transition-colors"
               >
                 Privacy Policy
+              </button>
+              <button
+                onClick={onShowPressKit}
+                className="text-[16px] pb-2 text-muted-foreground hover:text-accent transition-colors"
+              >
+                Press Kit
               </button>
             </div>
             <p className="text-[14px] text-muted-foreground font-mono pt-[0px] pr-[0px] pb-[8px] pl-[0px]">

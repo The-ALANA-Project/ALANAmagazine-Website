@@ -8,6 +8,10 @@ export function TermsOfServicePage() {
     <TermsOfService 
       onClose={() => navigate('/')}
       onShowPrivacy={() => navigate('/privacy-policy')}
+      onShopArchiveClick={() => navigate('/shop-archive')}
+      onTeamClick={() => navigate('/contributors')}
+      onAdvertiseClick={() => navigate('/advertise')}
+      onShowPressKit={() => navigate('/press-kit')}
     />
   );
 }

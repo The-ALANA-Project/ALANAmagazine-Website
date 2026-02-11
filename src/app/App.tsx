@@ -1,8 +1,9 @@
 // Initialize AppKit BEFORE any other imports
 import '@/config/appkit-init';
 
+import { RouterProvider } from 'react-router';
+import { router } from '@/app/routes';
 import { WalletConnectProvider } from '@/app/components/WalletConnectProvider';
-import { AppContent } from '@/app/components/AppContent';
 import { ErrorBoundary } from '@/app/components/ErrorBoundary';
 import { Toaster } from '@/app/components/ui/sonner';
 import { useEffect } from 'react';
@@ -28,7 +29,7 @@ export default function App() {
   return (
     <WalletConnectProvider>
       <ErrorBoundary>
-        <AppContent />
+        <RouterProvider router={router} />
         <Toaster position="bottom-right" />
       </ErrorBoundary>
     </WalletConnectProvider>
